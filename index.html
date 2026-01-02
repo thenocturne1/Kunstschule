@@ -99,10 +99,10 @@ function KunstschuleHome() {
   };
 
   const navItems = [
-    { id: 'kurse', label: 'Kurse', color: '#E8B4BC', icon: '✎' },
-    { id: 'info', label: 'Über uns', color: '#7BA896', icon: '☺' },
-    { id: 'kalender', label: 'Termine', color: '#E8DDD4', icon: '▦' },
-    { id: 'faq', label: 'Kontakt', color: '#DBBEA1', icon: '✆' },
+    { id: 'kurse', label: 'Kurse', color: '#E8B4BC', icon: '✏' },
+    { id: 'info', label: 'Über uns', color: '#7BA896', icon: '👤' },
+    { id: 'kalender', label: 'Termine', color: '#E8DDD4', icon: '📅' },
+    { id: 'faq', label: 'Kontakt', color: '#DBBEA1', icon: '📞' },
   ];
 
   const triangleClipPaths = {
@@ -281,10 +281,10 @@ function KunstschuleHome() {
         left: 0,
         right: 0,
         background: activeSection ? '#E8B4BC' : 'transparent',
-        padding: '1rem 2rem',
+        padding: '1.2rem 2rem',
         display: 'flex',
         justifyContent: 'center',
-        gap: '3rem',
+        gap: '4rem',
         zIndex: 200,
         transition: 'background 0.3s'
       }}>
@@ -300,11 +300,11 @@ function KunstschuleHome() {
             }}
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: '0.8rem',
+              fontSize: '0.95rem',
               color: '#fff',
               cursor: 'pointer',
-              letterSpacing: '0.15em',
-              textShadow: activeSection ? 'none' : '0 1px 3px rgba(0,0,0,0.3)'
+              letterSpacing: '0.25em',
+              textShadow: activeSection ? 'none' : '0 1px 3px rgba(0,0,0,0.2)'
             }}
           >{item}</span>
         ))}
@@ -362,19 +362,23 @@ function KunstschuleHome() {
                   position: 'absolute',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.6rem',
+                  gap: '0.8rem',
                   ...labelPositions[item.id]
                 }}>
                   <span style={{
                     fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontSize: 'clamp(1rem, 1.8vw, 1.3rem)',
+                    fontSize: 'clamp(1.1rem, 2vw, 1.5rem)',
                     fontWeight: 400,
                     color: '#fff',
-                    letterSpacing: '0.03em'
+                    letterSpacing: '0.05em'
                   }}>
                     {item.label}
                   </span>
-                  <span style={{ fontSize: '1.1rem', opacity: 0.85 }}>{item.icon}</span>
+                  <span style={{ 
+                    fontSize: 'clamp(1rem, 1.8vw, 1.3rem)', 
+                    filter: 'brightness(0) invert(1)',
+                    opacity: 0.9 
+                  }}>{item.icon}</span>
                 </div>
               )}
             </div>
@@ -392,28 +396,28 @@ function KunstschuleHome() {
             zIndex: 110,
             pointerEvents: 'none'
           }}>
-            {/* Spreebogen Graphic */}
+            {/* Hand Graphic */}
             <img 
-              src={images.grafik} 
-              alt="Spreebogen" 
+              src="hand.png"
+              alt="Hand" 
               style={{ 
-                width: 'clamp(180px, 35vw, 350px)', 
+                width: 'clamp(250px, 45vw, 500px)', 
                 height: 'auto', 
-                marginBottom: '0.5rem',
+                marginBottom: '1rem',
                 opacity: 0.95
               }} 
             />
             
-            {/* School Name - Big and Clear */}
+            {/* School Name - BOLD and BIG */}
             <h1 style={{
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: 'clamp(1.8rem, 4.5vw, 3rem)',
-              fontWeight: 400,
+              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+              fontWeight: 600,
               color: '#fff',
-              letterSpacing: '0.12em',
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              lineHeight: 1.15,
-              marginBottom: '0.3rem'
+              lineHeight: 1.05,
+              marginBottom: '0.5rem'
             }}>
               Kunstschule<br />am Spreebord
             </h1>
@@ -421,10 +425,11 @@ function KunstschuleHome() {
             {/* Tagline */}
             <p style={{
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: 'clamp(0.85rem, 1.5vw, 1.1rem)',
+              fontSize: 'clamp(1rem, 2vw, 1.4rem)',
               color: 'rgba(255,255,255,0.95)',
-              letterSpacing: '0.25em',
-              fontStyle: 'italic'
+              letterSpacing: '0.3em',
+              fontStyle: 'italic',
+              marginTop: '0.5rem'
             }}>
               Kreativität am Wasser
             </p>
