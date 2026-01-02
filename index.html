@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spreebogen Kunstschule - Berlin</title>
+    <title>Kunstschule am Spreebord - Berlin</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -21,25 +21,15 @@
         
 function KunstschuleHome() {
   const [activeSection, setActiveSection] = useState(null);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [formSent, setFormSent] = useState(false);
   const [selectedKurs, setSelectedKurs] = useState(null);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  // Placeholder images (using picsum for demo - replace with real images)
   const images = {
-    hero: 'hero-image.jpg',
+    hero: 'Gemini_Generated_Image_uuzmpmuuzmpmuuzm.png',
+    grafik: 'spreebogen-grafik.png',
     malerei: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80',
     zeichnen: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80',
     keramik: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80',
     atelier: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80',
-    kurs1: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80',
-    kurs2: 'https://images.unsplash.com/photo-1456086272160-b28b0645b729?w=600&q=80',
-    kurs3: 'https://images.unsplash.com/photo-1541367777708-7905fe3296c0?w=600&q=80',
   };
 
   const kurseData = {
@@ -49,7 +39,7 @@ function KunstschuleHome() {
       time: 'Montags 10:00-12:00', duration: '12 Termine', price: '280',
       level: 'Alle Level', category: 'vormittag', color: '#5BA88C',
       image: images.malerei,
-      fullDescription: 'Entspanntes Aquarellmalen am Vormittag.',
+      fullDescription: 'Entspanntes Aquarellmalen am Vormittag - fuer alle, die in ruhiger Atmosphaere kreativ sein moechten.',
       nextStart: new Date('2026-01-13'), spotsAvailable: 6
     },
     'zeichnen-basiskurs': {
@@ -58,7 +48,7 @@ function KunstschuleHome() {
       time: 'Montags 18:30-20:30', duration: '12 Termine', price: '310',
       level: 'Anfaenger', category: 'abend', color: '#E8B4BC',
       image: images.zeichnen,
-      fullDescription: 'Der Zeichnen Basiskurs vermittelt fundamentale Techniken.',
+      fullDescription: 'Der Zeichnen Basiskurs vermittelt fundamentale Techniken des klassischen akademischen Zeichnens.',
       nextStart: new Date('2026-01-13'), spotsAvailable: 4
     },
     'malerei-basiskurs': {
@@ -67,7 +57,7 @@ function KunstschuleHome() {
       time: 'Dienstags 19:00-21:00', duration: '12 Termine', price: '310',
       level: 'Anfaenger', category: 'abend', color: '#E8B4BC',
       image: images.malerei,
-      fullDescription: 'Im Malerei Basiskurs tauchst du in die Welt der Farbe.',
+      fullDescription: 'Im Malerei Basiskurs tauchst du ein in die Welt der Farbe.',
       nextStart: new Date('2026-01-14'), spotsAvailable: 5
     },
     'keramik-toepfern': {
@@ -76,7 +66,7 @@ function KunstschuleHome() {
       time: 'Mittwochs 16:00-18:30', duration: '10 Termine', price: '420',
       level: 'Alle Level', category: 'abend', color: '#E8B4BC',
       image: images.keramik,
-      fullDescription: 'Keramik ist eine der aeltesten Kunstformen.',
+      fullDescription: 'Keramik ist eine der aeltesten Kunstformen der Menschheit.',
       nextStart: new Date('2026-01-15'), spotsAvailable: 6
     },
     'aktzeichnen': {
@@ -85,7 +75,7 @@ function KunstschuleHome() {
       time: 'Donnerstags 19:00-21:15', duration: '12er-Karte', price: '280 / 20 Tag',
       level: 'Alle Level', category: 'abend', color: '#D4D0C8',
       image: images.zeichnen,
-      fullDescription: 'Aktzeichnen nach lebendem Modell.',
+      fullDescription: 'Aktzeichnen nach lebendem Modell. Auch spontan mit Tagesticket moeglich.',
       nextStart: new Date('2026-01-16'), spotsAvailable: 99, isDropIn: true
     },
     'portrait-figur': {
@@ -93,45 +83,26 @@ function KunstschuleHome() {
       desc: 'Menschendarstellung vertiefen.',
       time: 'Samstags 09:30-12:30', duration: '10 Termine', price: '380',
       level: 'Grundkenntnisse', category: 'abend', color: '#E8B4BC',
-      image: images.kurs1,
-      fullDescription: 'Die Darstellung des Menschen.',
+      image: images.zeichnen,
+      fullDescription: 'Die Darstellung des Menschen ist eine der groessten Herausforderungen.',
       nextStart: new Date('2026-01-18'), spotsAvailable: 5
-    },
-    'graffiti-jugend': {
-      id: 'graffiti-jugend', title: 'Graffiti fuer Kids & Teens',
-      desc: 'Buchstaben, Characters und Styles.',
-      time: 'Samstags 13:00-16:00', duration: '8 Termine', price: '240',
-      level: '10-17 Jahre', category: 'jugend', color: '#E8B4BC',
-      image: images.kurs2,
-      fullDescription: 'Graffiti ist mehr als Sprayen.',
-      nextStart: new Date('2026-01-18'), spotsAvailable: 8
     },
     'bildhauerei-bronze': {
       id: 'bildhauerei-bronze', title: 'Bildhauerei & Bronzeguss',
       desc: 'Vom Tonmodell zur Bronzeskulptur.',
       time: 'Samstags 10:00-14:00', duration: '12 Termine', price: '1450',
       level: 'Alle Level', category: 'intensiv', color: '#5BA88C',
-      image: images.kurs3,
-      fullDescription: 'Erschaffe deine eigene Bronzeskulptur.',
+      image: images.keramik,
+      fullDescription: 'Erschaffe deine eigene Bronzeskulptur - auch fuer Anfaenger!',
       nextStart: new Date('2026-02-01'), spotsAvailable: 6
     },
   };
 
-  const workshopData = {
-    'anatomie-portrait': {
-      id: 'anatomie-portrait', title: 'Anatomie & Portrait Masterclass',
-      date: '01.-02. Feb 2026', dateObj: new Date('2026-02-01'),
-      desc: 'Zwei Tage intensive Arbeit.', price: '195',
-      category: 'workshop', color: '#DBBEA1',
-      fullDescription: 'Ein intensives Wochenende.'
-    },
-  };
-
   const navItems = [
-    { id: 'kurse', label: 'Kurse', color: '#E8B4BC' },
-    { id: 'info', label: 'Ueber uns', color: '#5BA88C' },
-    { id: 'kalender', label: 'Termine', color: '#D4D0C8' },
-    { id: 'faq', label: 'Kontakt', color: '#DBBEA1' },
+    { id: 'kurse', label: 'Kurse', color: '#E8B4BC', icon: '✎' },
+    { id: 'info', label: 'Über uns', color: '#7BA896', icon: '☺' },
+    { id: 'kalender', label: 'Termine', color: '#E8DDD4', icon: '▦' },
+    { id: 'faq', label: 'Kontakt', color: '#DBBEA1', icon: '✆' },
   ];
 
   const triangleClipPaths = {
@@ -149,10 +120,10 @@ function KunstschuleHome() {
   };
 
   const labelPositions = {
-    kurse: { top: '12%', left: '50%', transform: 'translateX(-50%)' },
-    info: { top: '50%', right: '12%', transform: 'translateY(-50%)' },
-    kalender: { top: '50%', left: '12%', transform: 'translateY(-50%)' },
-    faq: { bottom: '12%', left: '50%', transform: 'translateX(-50%)' },
+    kurse: { top: '18%', left: '50%', transform: 'translateX(-50%)' },
+    info: { top: '50%', right: '10%', transform: 'translateY(-50%)' },
+    kalender: { top: '50%', left: '10%', transform: 'translateY(-50%)' },
+    faq: { bottom: '18%', left: '50%', transform: 'translateX(-50%)' },
   };
 
   const handleTriangleClick = (id) => {
@@ -168,7 +139,7 @@ function KunstschuleHome() {
   const handleAnmeldung = (e, kursName) => {
     e.preventDefault();
     e.stopPropagation();
-    const mailtoLink = `mailto:info@spreebogen-kunstschule.de?subject=${encodeURIComponent(`Anmeldung: ${kursName}`)}&body=${encodeURIComponent(`Ich moechte mich fuer "${kursName}" anmelden.\n\nName:\nTelefon:\nE-Mail:`)}`;
+    const mailtoLink = `mailto:info@kunstschule-spreebord.de?subject=${encodeURIComponent(`Anmeldung: ${kursName}`)}&body=${encodeURIComponent(`Ich moechte mich fuer "${kursName}" anmelden.\n\nName:\nTelefon:\nE-Mail:`)}`;
     window.open(mailtoLink, '_blank');
   };
 
@@ -176,7 +147,7 @@ function KunstschuleHome() {
   const closeKursDetail = () => setSelectedKurs(null);
 
   const KursDetailModal = ({ kursId, onClose }) => {
-    const kurs = kurseData[kursId] || workshopData[kursId];
+    const kurs = kurseData[kursId];
     if (!kurs) return null;
     return (
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }} onClick={onClose}>
@@ -185,7 +156,7 @@ function KunstschuleHome() {
             <button onClick={onClose} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.9)', border: 'none', width: '40px', height: '40px', fontSize: '1.5rem', cursor: 'pointer', borderRadius: '50%' }}>×</button>
           </div>}
           <div style={{ padding: '2rem' }}>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{kurs.level || kurs.date}</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{kurs.level}</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2rem', fontWeight: 400, margin: '0.5rem 0' }}>{kurs.title}</h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem', color: '#666', marginBottom: '1.5rem' }}>{kurs.time} · {kurs.duration}</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem', color: '#333', lineHeight: 1.8, marginBottom: '2rem' }}>{kurs.fullDescription}</p>
@@ -199,15 +170,15 @@ function KunstschuleHome() {
     );
   };
 
-  const KursCard = ({ kurs, large }) => (
-    <div onClick={() => openKursDetail(kurs.id)} style={{ cursor: 'pointer', background: '#fff', overflow: 'hidden', boxShadow: '0 2px 20px rgba(0,0,0,0.08)', transition: 'transform 0.3s, box-shadow 0.3s' }}>
-      <div style={{ height: large ? '200px' : '150px', background: `url(${kurs.image}) center/cover`, position: 'relative' }}>
+  const KursCard = ({ kurs }) => (
+    <div onClick={() => openKursDetail(kurs.id)} style={{ cursor: 'pointer', background: '#fff', overflow: 'hidden', boxShadow: '0 2px 20px rgba(0,0,0,0.08)', transition: 'transform 0.3s' }}>
+      <div style={{ height: '160px', background: `url(${kurs.image}) center/cover`, position: 'relative' }}>
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.6))', padding: '1.5rem 1rem 1rem' }}>
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.65rem', color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{kurs.level}</span>
         </div>
       </div>
       <div style={{ padding: '1.25rem' }}>
-        <h4 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: large ? '1.4rem' : '1.15rem', fontWeight: 400, marginBottom: '0.5rem' }}>{kurs.title}</h4>
+        <h4 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.2rem', fontWeight: 400, marginBottom: '0.5rem' }}>{kurs.title}</h4>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.85rem', color: '#666', lineHeight: 1.5, marginBottom: '0.75rem' }}>{kurs.desc}</p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: '#999' }}>{kurs.time}</span>
@@ -224,77 +195,38 @@ function KunstschuleHome() {
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '1rem', color: '#666', marginBottom: '3rem', maxWidth: '600px' }}>
           Von akademischen Grundlagen bis zur freien kuenstlerischen Entfaltung.
         </p>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
-          {Object.values(kurseData).slice(0, 6).map(kurs => <KursCard key={kurs.id} kurs={kurs} />)}
-        </div>
-        
-        <div style={{ background: `url(${images.atelier}) center/cover`, height: '400px', position: 'relative', marginBottom: '4rem' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', color: '#fff', textAlign: 'center', padding: '2rem' }}>
-            <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.5rem', fontWeight: 300, marginBottom: '1rem' }}>Kostenlose Schnupperstunde</h3>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '1rem', maxWidth: '500px', marginBottom: '2rem' }}>Lerne unser Atelier und unsere Dozenten kennen - unverbindlich und kostenlos.</p>
-            <button style={{ fontFamily: "'DM Sans', sans-serif", background: '#fff', color: '#1A1A1A', border: 'none', padding: '1rem 2.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>Termin vereinbaren</button>
-          </div>
-        </div>
-        
-        <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.8rem', fontWeight: 400, marginBottom: '2rem' }}>Weitere Kurse</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-          {Object.values(kurseData).slice(6).map(kurs => <KursCard key={kurs.id} kurs={kurs} />)}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          {Object.values(kurseData).map(kurs => <KursCard key={kurs.id} kurs={kurs} />)}
         </div>
       </div>
     ),
     info: (
       <div style={{ padding: '4rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.8rem', fontWeight: 300, marginBottom: '3rem' }}>Ueber uns</h2>
-        
+        <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.8rem', fontWeight: 300, marginBottom: '3rem' }}>Über uns</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
           <div>
             <img src={images.atelier} alt="Atelier" style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '1.5rem' }} />
             <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', marginBottom: '1rem' }}>Unser Atelier</h3>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem', color: '#555', lineHeight: 1.7 }}>
-              55 qm kreativer Raum im Herzen Berlins, eingebettet in den Firmenkomplex einer Kunstgiesserei.
+              55 qm kreativer Raum im Herzen Berlins, eingebettet in den Firmenkomplex einer Kunstgiesserei. Kreativitaet am Wasser.
             </p>
           </div>
           <div>
             <img src={images.keramik} alt="Keramik" style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '1.5rem' }} />
-            <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', marginBottom: '1rem' }}>Unsere Philosophie</h3>
+            <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', marginBottom: '1rem' }}>Philosophie</h3>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.95rem', color: '#555', lineHeight: 1.7 }}>
               Kleine Gruppen, individuelle Betreuung. Wir glauben, dass jeder Mensch kreativ ist.
             </p>
-          </div>
-        </div>
-        
-        <div style={{ background: '#f5f5f3', padding: '3rem', marginBottom: '3rem' }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.8rem', marginBottom: '2rem' }}>Unser Team</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-            {['Carla Steinberg', 'Markus Heller', 'Nina Schreiber', 'Thomas Brenner'].map((name, i) => (
-              <div key={i} style={{ textAlign: 'center' }}>
-                <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: ['#E8B4BC', '#5BA88C', '#D4D0C8', '#DBBEA1'][i], margin: '0 auto 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', color: '#fff' }}>{name[0]}</div>
-                <h4 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.1rem' }}>{name}</h4>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', color: '#888' }}>Dozent/in</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>
     ),
     kalender: (
       <div style={{ padding: '4rem 2rem', maxWidth: '1000px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.8rem', fontWeight: 300, marginBottom: '3rem' }}>Termine & Events</h2>
-        
-        <div style={{ background: `url(${images.kurs1}) center/cover`, height: '300px', position: 'relative', marginBottom: '3rem' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', padding: '3rem' }}>
-            <div style={{ color: '#fff' }}>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Naechster Event</span>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2rem', margin: '0.5rem 0' }}>Tag der offenen Tuer</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '1rem' }}>25. Januar 2026 · 11:00-17:00 Uhr</p>
-            </div>
-          </div>
-        </div>
-        
+        <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.8rem', fontWeight: 300, marginBottom: '3rem' }}>Termine</h2>
         <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', marginBottom: '1.5rem' }}>Kommende Kursstarts</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {Object.values(kurseData).filter(k => k.nextStart).slice(0, 5).map(kurs => (
+          {Object.values(kurseData).filter(k => k.nextStart).slice(0, 6).map(kurs => (
             <div key={kurs.id} onClick={() => openKursDetail(kurs.id)} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1rem', background: '#fff', cursor: 'pointer', boxShadow: '0 1px 10px rgba(0,0,0,0.05)' }}>
               <div style={{ width: '60px', height: '60px', background: `url(${kurs.image}) center/cover`, flexShrink: 0 }} />
               <div style={{ flex: 1 }}>
@@ -313,17 +245,15 @@ function KunstschuleHome() {
     faq: (
       <div style={{ padding: '4rem 2rem', maxWidth: '900px', margin: '0 auto' }}>
         <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.8rem', fontWeight: 300, marginBottom: '3rem' }}>Kontakt</h2>
-        
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
           <div>
-            <img src={images.atelier} alt="Atelier" style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: '1.5rem' }} />
-            <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.3rem', marginBottom: '1rem' }}>Spreebogen Kunstschule</h3>
+            <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.3rem', marginBottom: '1rem' }}>Kunstschule am Spreebord</h3>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem', color: '#555', lineHeight: 1.8 }}>
               Oranienstrasse 185<br />Hinterhof 2. OG<br />10999 Berlin-Kreuzberg
             </p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem', color: '#555', lineHeight: 1.8, marginTop: '1rem' }}>
               <strong>Telefon:</strong> 0176 22996566<br />
-              <strong>E-Mail:</strong> info@spreebogen-kunstschule.de<br />
+              <strong>E-Mail:</strong> info@kunstschule-spreebord.de<br />
               <strong>Erreichbar:</strong> Mo-Fr 16-19 Uhr
             </p>
           </div>
@@ -333,80 +263,51 @@ function KunstschuleHome() {
               <input type="text" placeholder="Name" style={{ fontFamily: "'DM Sans', sans-serif", padding: '0.75rem', border: '1px solid #ddd', fontSize: '0.9rem' }} />
               <input type="email" placeholder="E-Mail" style={{ fontFamily: "'DM Sans', sans-serif", padding: '0.75rem', border: '1px solid #ddd', fontSize: '0.9rem' }} />
               <textarea placeholder="Nachricht" rows={4} style={{ fontFamily: "'DM Sans', sans-serif", padding: '0.75rem', border: '1px solid #ddd', fontSize: '0.9rem', resize: 'vertical' }} />
-              <button style={{ fontFamily: "'DM Sans', sans-serif", background: '#1A1A1A', color: '#fff', border: 'none', padding: '0.75rem', cursor: 'pointer', fontSize: '0.9rem' }}>Absenden</button>
+              <button type="button" style={{ fontFamily: "'DM Sans', sans-serif", background: '#1A1A1A', color: '#fff', border: 'none', padding: '0.75rem', cursor: 'pointer', fontSize: '0.9rem' }}>Absenden</button>
             </form>
           </div>
         </div>
-        
-        <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', marginBottom: '1.5rem' }}>Haeufige Fragen</h3>
-        {[
-          { q: 'Brauche ich Vorkenntnisse?', a: 'Nein! Unsere Basiskurse sind fuer absolute Anfaenger geeignet.' },
-          { q: 'Kann ich schnuppern?', a: 'Ja! Die erste Stunde ist kostenlos und unverbindlich.' },
-          { q: 'Muss ich Material mitbringen?', a: 'Ja, Teilnehmer bringen ihr eigenes Material mit. Eine Materialliste gibt es bei Anmeldung.' },
-        ].map((faq, i) => (
-          <div key={i} style={{ borderBottom: '1px solid #eee', padding: '1.5rem 0' }}>
-            <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '1rem', marginBottom: '0.5rem' }}>{faq.q}</h4>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem', color: '#666' }}>{faq.a}</p>
-          </div>
-        ))}
       </div>
     ),
   };
 
   return (
     <div style={{ minHeight: '100vh', background: '#FAFAF8', position: 'relative' }}>
-      {/* Hero Background Image */}
-      {!activeSection && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          background: `url(${images.hero}) center/cover`,
-          zIndex: 1
-        }} />
-      )}
-
-      {/* Logo */}
-      <div 
-        onClick={() => setActiveSection(null)}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: activeSection ? 200 : 50,
-          textAlign: 'center',
-          cursor: activeSection ? 'pointer' : 'default',
-          pointerEvents: activeSection ? 'auto' : 'none',
-          transition: 'all 0.5s ease'
-        }}
-      >
-        <h1 style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: activeSection ? '1.2rem' : 'clamp(2rem, 5vw, 3.5rem)',
-          fontWeight: 300,
-          color: activeSection ? '#1A1A1A' : '#fff',
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          textShadow: activeSection ? 'none' : '0 2px 20px rgba(0,0,0,0.3)',
-          transition: 'all 0.5s ease',
-          opacity: activeSection ? 0 : 1
-        }}>
-          Spreebogen<br />Kunstschule
-        </h1>
-        {!activeSection && (
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: '0.9rem',
-            color: 'rgba(255,255,255,0.9)',
-            marginTop: '1rem',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            textShadow: '0 1px 10px rgba(0,0,0,0.3)'
-          }}>Berlin</p>
-        )}
+      
+      {/* Top Navigation Bar */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        background: activeSection ? '#E8B4BC' : 'transparent',
+        padding: '1rem 2rem',
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '3rem',
+        zIndex: 200,
+        transition: 'background 0.3s'
+      }}>
+        {['HOME', 'KURSE', 'TERMINE', 'ÜBER UNS', 'KONTAKT'].map((item, i) => (
+          <span 
+            key={i}
+            onClick={() => {
+              if (item === 'HOME') setActiveSection(null);
+              else if (item === 'KURSE') setActiveSection('kurse');
+              else if (item === 'TERMINE') setActiveSection('kalender');
+              else if (item === 'ÜBER UNS') setActiveSection('info');
+              else if (item === 'KONTAKT') setActiveSection('faq');
+            }}
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: '0.8rem',
+              color: '#fff',
+              cursor: 'pointer',
+              letterSpacing: '0.15em',
+              textShadow: activeSection ? 'none' : '0 1px 3px rgba(0,0,0,0.3)'
+            }}
+          >{item}</span>
+        ))}
       </div>
 
       {/* Content Area */}
@@ -419,26 +320,17 @@ function KunstschuleHome() {
           height: '100vh',
           background: '#FAFAF8',
           zIndex: 30,
-          overflow: 'auto'
+          overflow: 'auto',
+          paddingTop: '60px'
         }}>
-          <div style={{ paddingTop: '2rem' }}>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <span 
-                onClick={() => setActiveSection(null)}
-                style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', cursor: 'pointer', letterSpacing: '0.1em' }}
-              >
-                Spreebogen Kunstschule
-              </span>
-            </div>
-            {sectionContent[activeSection]}
-          </div>
+          {sectionContent[activeSection]}
         </div>
       )}
 
       {/* Kurs Detail Modal */}
       {selectedKurs && <KursDetailModal kursId={selectedKurs} onClose={closeKursDetail} />}
 
-      {/* Semi-transparent Triangles */}
+      {/* Triangles */}
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: activeSection ? 40 : 100, pointerEvents: 'none' }}>
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
@@ -458,7 +350,7 @@ function KunstschuleHome() {
                 height: '100%',
                 background: item.color,
                 clipPath: clipPath,
-                opacity: hasActiveSection ? 0.9 : 0.75,
+                opacity: hasActiveSection ? 0.95 : 0.88,
                 transition: 'clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease',
                 cursor: isClickable ? 'pointer' : 'default',
                 pointerEvents: isClickable ? 'auto' : 'none',
@@ -466,22 +358,78 @@ function KunstschuleHome() {
               }}
             >
               {!hasActiveSection && (
-                <span style={{
+                <div style={{
                   position: 'absolute',
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-                  fontWeight: 400,
-                  color: '#fff',
-                  letterSpacing: '0.05em',
-                  textShadow: '0 1px 5px rgba(0,0,0,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
                   ...labelPositions[item.id]
                 }}>
-                  {item.label}
-                </span>
+                  <span style={{
+                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontSize: 'clamp(1rem, 1.8vw, 1.3rem)',
+                    fontWeight: 400,
+                    color: '#fff',
+                    letterSpacing: '0.03em'
+                  }}>
+                    {item.label}
+                  </span>
+                  <span style={{ fontSize: '1.1rem', opacity: 0.85 }}>{item.icon}</span>
+                </div>
               )}
             </div>
           );
         })}
+
+        {/* Center Logo and Name */}
+        {!activeSection && (
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center',
+            zIndex: 110,
+            pointerEvents: 'none'
+          }}>
+            {/* Spreebogen Graphic */}
+            <img 
+              src={images.grafik} 
+              alt="Spreebogen" 
+              style={{ 
+                width: 'clamp(180px, 35vw, 350px)', 
+                height: 'auto', 
+                marginBottom: '0.5rem',
+                opacity: 0.95
+              }} 
+            />
+            
+            {/* School Name - Big and Clear */}
+            <h1 style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: 'clamp(1.8rem, 4.5vw, 3rem)',
+              fontWeight: 400,
+              color: '#fff',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              lineHeight: 1.15,
+              marginBottom: '0.3rem'
+            }}>
+              Kunstschule<br />am Spreebord
+            </h1>
+            
+            {/* Tagline */}
+            <p style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: 'clamp(0.85rem, 1.5vw, 1.1rem)',
+              color: 'rgba(255,255,255,0.95)',
+              letterSpacing: '0.25em',
+              fontStyle: 'italic'
+            }}>
+              Kreativität am Wasser
+            </p>
+          </div>
+        )}
 
         {/* Center dot */}
         <div style={{
@@ -489,15 +437,14 @@ function KunstschuleHome() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '8px',
-          height: '8px',
+          width: '5px',
+          height: '5px',
           background: '#fff',
           borderRadius: '50%',
-          zIndex: 110,
+          zIndex: 105,
           pointerEvents: 'none',
-          opacity: activeSection ? 0 : 1,
-          transition: 'opacity 0.4s ease',
-          boxShadow: '0 1px 5px rgba(0,0,0,0.3)'
+          opacity: activeSection ? 0 : 0.5,
+          transition: 'opacity 0.4s ease'
         }} />
       </div>
     </div>
