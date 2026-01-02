@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunstschule am Spreebord</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         /* GRUNDLEGENDE STYLES */
@@ -114,25 +114,28 @@
             align-items: center;
             opacity: 1;
             transition: opacity 0.4s;
+            width: 100%;
         }
 
         .hidden { opacity: 0 !important; pointer-events: none !important; }
 
+        /* TITEL STYLES - GRÖSSER UND FETTER */
         .center-title {
-            font-size: clamp(2.2rem, 5.5vw, 4rem);
-            font-weight: 600;
+            font-size: clamp(3rem, 8vw, 6.5rem); /* Max 6.5rem, Min 3rem */
+            font-weight: 900; /* Ultra Bold */
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            line-height: 1.1;
+            line-height: 0.9;
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         .center-tagline {
             font-style: italic;
-            font-size: clamp(0.95rem, 1.8vw, 1.3rem);
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             letter-spacing: 0.3em;
-            margin-top: 0.5rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-weight: 500;
         }
 
         /* INHALTSBEREICHE (CONTENT SECTIONS) */
@@ -159,20 +162,53 @@
             margin: 0 auto;
         }
 
-        /* KURS KARTEN */
+        /* KURS SECTION STYLES */
+        .section-header {
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        .category-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin: 4rem 0 2rem 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        .category-header h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+        .category-badge {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
         .course-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
+        
         .course-card {
             border-left: 2px solid #ccc;
-            padding-left: 1.5rem;
+            padding: 1.5rem;
+            background: white;
             cursor: pointer;
-            transition: border-color 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .course-card:hover { border-left-color: #000; }
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
         
         /* MODAL */
         .modal {
@@ -194,6 +230,7 @@
             position: relative;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         .close-btn {
             position: absolute;
@@ -202,34 +239,25 @@
             font-size: 1.5rem; cursor: pointer;
         }
 
-        /* SVG Animation */
-        @keyframes draw {
-            from { stroke-dashoffset: 200; }
-            to { stroke-dashoffset: 0; }
-        }
-        .animate-draw {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: draw 2.5s ease-out forwards;
-        }
-
         /* Helper Classes */
         .btn {
             display: inline-block;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             padding: 0.5rem 1rem;
             border: 1px solid #1A1A1A;
             background: transparent;
             cursor: pointer;
             font-size: 0.75rem;
+            transition: all 0.2s;
         }
         .btn:hover { background: #1A1A1A; color: white; }
 
         /* Responsive Tweaks */
         @media (max-width: 768px) {
-            .navbar span { font-size: 0.7rem; letter-spacing: 0.1em; }
+            .navbar span { font-size: 0.7rem; letter-spacing: 0.1em; gap: 1rem; }
             .label-container svg { width: 24px; height: 24px; }
             .label-container span { font-size: 0.9rem; }
+            .center-title { letter-spacing: 0.05em; }
         }
     </style>
 </head>
@@ -272,16 +300,17 @@
 
         <!-- CENTER LOGO -->
         <div class="center-content" id="center-content">
-            <svg width="240" height="240" viewBox="0 0 200 200" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.9; margin-bottom: 1.5rem;">
-                <path d="M60 140 Q55 120 65 100 T90 85" fill="none" class="animate-draw" />
-                <path d="M90 85 Q100 80 110 90" fill="none" class="animate-draw" style="animation-delay: 0.2s" />
-                <path d="M110 90 Q120 95 115 110" fill="none" class="animate-draw" style="animation-delay: 0.4s" />
-                <path d="M115 110 Q110 130 125 145" fill="none" class="animate-draw" style="animation-delay: 0.6s" />
-                <line x1="125" y1="145" x2="160" y2="180" stroke-width="4" />
-                <polygon points="160,180 165,185 170,170 160,180" fill="white" stroke="none" />
-                <path d="M40 140 Q20 160 40 180 T80 170" stroke-dasharray="4 4" opacity="0.6" class="animate-draw" style="animation-delay: 1s" />
-                <path d="M140 60 Q160 40 180 60 T160 100" stroke-dasharray="4 4" opacity="0.6" class="animate-draw" style="animation-delay: 1.2s" />
+            <!-- DEUTLICHERE HAND MIT STIFT SVG -->
+            <svg width="280" height="280" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.95; margin-bottom: 2rem;">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
             </svg>
+            <!-- Ergänzende Grafik für die Handfläche -->
+            <svg width="260" height="260" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; top:40px; opacity: 0.9;">
+               <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+            </svg>
+
             <h1 class="center-title">Kunstschule<br />am Spreebord</h1>
             <p class="center-tagline">Kreativität am Wasser</p>
         </div>
@@ -301,34 +330,166 @@
     <!-- KURSE SECTION -->
     <div id="section-kurse" class="content-overlay">
         <div class="container">
-            <h2 style="font-size: 2.8rem; font-weight: 300; margin-bottom: 1rem;">Kursangebot</h2>
-            <p style="color: #555; max-width: 650px; line-height: 1.7; margin-bottom: 2rem;">Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung.</p>
+            <h2 class="section-title">Kursangebot</h2>
+            <p style="color: #555; max-width: 650px; line-height: 1.7; margin-bottom: 2rem;">Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung. Hier ist unser vollständiges Programm.</p>
+
+            <!-- VORMITTAG -->
+            <div class="category-header">
+                <h3>Vormittagskurse</h3>
+                <span class="category-badge" style="color:#5BA88C">Entspannt am Vormittag</span>
+            </div>
             <div class="course-grid">
-                <!-- Beispiel Kurs -->
-                <div class="course-card" onclick="openModal('aquarell')">
-                    <h4 style="font-size: 1.3rem; font-weight: 400;">Aquarell am Vormittag</h4>
-                    <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Entspanntes Malen mit Aquarellfarben.</p>
-                    <div style="font-size: 0.8rem; color: #888;">Montags 10:00-12:00</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 1.1rem;">EUR 280</span>
+                <div class="course-card" onclick="openModal('aquarell-vormittag')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Aquarell am Vormittag</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Entspanntes Malen in ruhiger Atmosphäre. Landschaften und Stillleben.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f5; display:inline-block; padding:2px 6px; border-radius:4px;">Alle Level</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 280</span>
                         <button class="btn">Anmelden</button>
                     </div>
                 </div>
-                <div class="course-card" onclick="openModal('manga')">
-                    <h4 style="font-size: 1.3rem; font-weight: 400;">Manga Zeichnen</h4>
-                    <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Lerne Charakterdesign und Proportionen.</p>
-                    <div style="font-size: 0.8rem; color: #888;">Freitags 16:30-18:30</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 1.1rem;">EUR 260</span>
+                <div class="course-card" onclick="openModal('zeichnen-malen-vormittag')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Zeichnen & Malen</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Grundlagen in entspanntem Tempo. Bleistift, Kohle und Acryl.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Alle Level</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 320</span>
                         <button class="btn">Anmelden</button>
                     </div>
                 </div>
-                <div class="course-card" onclick="openModal('keramik')">
-                    <h4 style="font-size: 1.3rem; font-weight: 400;">Keramik & Töpfern</h4>
-                    <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Arbeiten mit Ton und Glasur.</p>
-                    <div style="font-size: 0.8rem; color: #888;">Mittwochs 16:00-18:30</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 1.1rem;">EUR 420</span>
+                 <div class="course-card" onclick="openModal('keramik-vormittag')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Keramik am Vormittag</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Töpfern und Gestalten mit Ton in entspannter Runde.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Alle Level</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 360</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABEND -->
+            <div class="category-header">
+                <h3>Abendkurse</h3>
+                <span class="category-badge" style="color:#E8B4BC">Nach dem Feierabend</span>
+            </div>
+            <div class="course-grid">
+                <div class="course-card" onclick="openModal('manga-kurs')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Manga Zeichnen</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Lerne Charakterdesign, Gesichtsausdrücke und Proportionen im Manga-Stil.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">10-16 Jahre</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 260</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openModal('aktzeichnen')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Aktzeichnen</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Arbeiten nach lebendigem Modell. Auch spontan mit Tagesticket!</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Alle Level</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 280 / 20</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openModal('zeichnen-basiskurs')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Zeichnen Basiskurs</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Die Grundlagen des akademischen Zeichnens: Form, Licht, Schatten.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Anfänger</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 310</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openModal('freie-malerei-grafik')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Freie Malerei & Grafik</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Entwickle deinen eigenen künstlerischen Stil mit individueller Betreuung.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Mit Vorkenntnissen</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 340</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUGEND & FERIEN -->
+             <div class="category-header">
+                <h3>Kinder & Jugendliche</h3>
+                <span class="category-badge" style="color:#E8B4BC">Kreativität fördern</span>
+            </div>
+            <div class="course-grid">
+                <div class="course-card" onclick="openModal('graffiti-jugend')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Graffiti für Kids & Teens</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Von der Skizze zur Wand: Buchstaben, Characters und Styles.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">10-17 Jahre</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 240</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                 <div class="course-card" onclick="openModal('ferienkurs-kunstabenteuer')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Kunstabenteuer (6-9 Jahre)</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Malen, Basteln, Experimentieren - eine Woche voller Kreativität.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">6-9 Jahre</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 195</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                 <div class="course-card" onclick="openModal('kindergeburtstag')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Kindergeburtstag</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Ein unvergesslicher Geburtstag: Malen, Basteln oder Graffiti.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">6-14 Jahre</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 250</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="category-header">
+                <h3>Intensivprogramme</h3>
+            </div>
+             <div class="course-grid">
+                <div class="course-card" onclick="openModal('mappenvorbereitung')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Mappenvorbereitung</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Systematische Vorbereitung auf Kunsthochschulen.</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Intensiv</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 590</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                 <div class="course-card" onclick="openModal('bildhauerei-bronze')">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400;">Bildhauerei & Bronze</h4>
+                        <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Vom Tonmodell zur Bronzeskulptur. Auch für Anfänger!</p>
+                        <div style="font-size: 0.8rem; color: #888; background:#f5f5f3; display:inline-block; padding:2px 6px; border-radius:4px;">Giesserei</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 1.2rem;">EUR 1450</span>
                         <button class="btn">Anmelden</button>
                     </div>
                 </div>
@@ -352,6 +513,10 @@
                         <h4 style="font-size: 1.3rem; font-weight: 400; margin-bottom: 0.75rem;">Individuelle Betreuung</h4>
                         <p style="opacity: 0.9; line-height: 1.7;">Kleine Gruppen von 8-12 Teilnehmern.</p>
                     </div>
+                     <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400; margin-bottom: 0.75rem;">Kostenlose Probestunde</h4>
+                        <p style="opacity: 0.9; line-height: 1.7;">Schnuppere unverbindlich in unsere Atmosphäre.</p>
+                    </div>
                 </div>
             </section>
         </div>
@@ -362,20 +527,28 @@
         <div class="container">
             <h2 style="font-size: 2.8rem; font-weight: 300; margin-bottom: 4rem;">Termine</h2>
             <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee;">
+                <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee; cursor:pointer;" onclick="openModal('aquarell-vormittag')">
                     <div style="width: 80px; font-weight: 600;">13. Jan</div>
                     <div style="width: 4px; height: 40px; background: #5BA88C;"></div>
                     <div>
-                        <h4 style="font-size: 1.1rem; font-weight: 400;">Aquarell am Vormittag</h4>
+                        <h4 style="font-size: 1.1rem; font-weight: 400;">Kursstart: Aquarell am Vormittag</h4>
                         <span style="font-size: 0.8rem; color: #888;">10:00 - 12:00</span>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee;">
-                    <div style="width: 80px; font-weight: 600;">15. Jan</div>
+                <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee; cursor:pointer;" onclick="openModal('manga-kurs')">
+                    <div style="width: 80px; font-weight: 600;">17. Jan</div>
                     <div style="width: 4px; height: 40px; background: #E8B4BC;"></div>
                     <div>
-                        <h4 style="font-size: 1.1rem; font-weight: 400;">Manga Zeichnen</h4>
+                        <h4 style="font-size: 1.1rem; font-weight: 400;">Kursstart: Manga Zeichnen</h4>
                         <span style="font-size: 0.8rem; color: #888;">16:30 - 18:30</span>
+                    </div>
+                </div>
+                 <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee; cursor:pointer;" onclick="openModal('ferienkurs-kunstabenteuer')">
+                    <div style="width: 80px; font-weight: 600;">30. Mär</div>
+                    <div style="width: 4px; height: 40px; background: #E8B4BC;"></div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; font-weight: 400;">Start: Kunstabenteuer Ferienkurs</h4>
+                        <span style="font-size: 0.8rem; color: #888;">09:30 - 13:30</span>
                     </div>
                 </div>
             </div>
@@ -412,41 +585,43 @@
     </div>
 
     <script>
-        // DATA
+        // DATA (Wiederhergestellt aus dem Original)
         const courses = {
-            'aquarell': { title: 'Aquarell am Vormittag', price: '280', desc: 'Entspanntes Aquarellmalen am Vormittag. Wir üben Nass-in-Nass und Lasurtechniken.' },
-            'manga': { title: 'Manga Zeichnen', price: '260', desc: 'Ein Kurs für alle Manga-Fans. Wir erstellen eigene Charaktere und lernen die typischen Stile.' },
-            'keramik': { title: 'Keramik & Töpfern', price: '420', desc: 'Keramik von Grund auf lernen. Ton und Glasuren inklusive.' }
+            'aquarell-vormittag': { title: 'Aquarell am Vormittag', price: '280', desc: 'Entspanntes Aquarellmalen am Vormittag - für alle, die in ruhiger Atmosphäre kreativ sein möchten.\n\nKursinhalte:\n- Grundlagen der Aquarelltechnik\n- Nass-in-Nass und Lasurtechniken\n- Landschaften, Blumen und Stillleben\n- Farbmischung und Farbharmonie' },
+            'zeichnen-malen-vormittag': { title: 'Zeichnen & Malen am Vormittag', price: '320', desc: 'Ein Kurs für alle, die das Zeichnen und Malen (wieder) entdecken möchten.' },
+            'keramik-vormittag': { title: 'Keramik am Vormittag', price: '360', desc: 'Keramik am Vormittag - Ton und Glasuren inklusive.' },
+            'portrait-vormittag': { title: 'Porträtzeichnen am Vormittag', price: '280', desc: 'Porträtzeichnen am Vormittag.' },
+            'offenes-atelier-vormittag': { title: 'Offenes Atelier am Vormittag', price: '15 / Termin', desc: 'Das Offene Atelier - komm vorbei und arbeite an eigenen Projekten.' },
+            'zeichnen-basiskurs': { title: 'Zeichnen Basiskurs', price: '310', desc: 'Der Zeichnen Basiskurs vermittelt fundamentale Techniken des klassischen akademischen Zeichnens.' },
+            'malerei-basiskurs': { title: 'Malerei Basiskurs', price: '310', desc: 'Im Malerei Basiskurs tauchst du ein in die Welt der Farbe.' },
+            'freie-malerei-grafik': { title: 'Freie Malerei & Grafik', price: '340', desc: 'Schwerpunkt auf der Entwicklung deiner eigenen künstlerischen Arbeiten.' },
+            'aktzeichnen': { title: 'Aktzeichnen', price: '280 (12er) / 20 (Tag)', desc: 'Aktzeichnen nach lebendigem Modell.' },
+            'aquarell-frei': { title: 'Freie Aquarellmalerei', price: '340', desc: 'Aquarell ist die Technik der Leichtigkeit und Transparenz.' },
+            'portrait-figur': { title: 'Portrait & Figur', price: '380', desc: 'Die Darstellung des Menschen.' },
+            'komposition-farbenlehre': { title: 'Komposition & Farbenlehre', price: '320', desc: 'Die Grundlagen der Bildgestaltung.' },
+            'keramik-toepfern': { title: 'Keramik & Töpfern', price: '420', desc: 'Keramik von Grund auf lernen.' },
+            'graffiti-jugend': { title: 'Graffiti für Kids & Teens', price: '240', desc: 'Graffiti als Kunstform.' },
+            'kindergeburtstag': { title: 'Kindergeburtstag im Atelier', price: '250', desc: 'Kreative Kindergeburtstage.' },
+            'ferienkurs-kunstabenteuer': { title: 'Kunstabenteuer (6-9 Jahre)', price: '195', desc: 'Kreative Ferienwoche.' },
+            'ferienkurs-keramik': { title: 'Keramik für Kids (8-14 Jahre)', price: '200', desc: 'Keramik für Kinder.' },
+            'bildhauerei-bronze': { title: 'Bildhauerei & Bronzeguss', price: '1450', desc: 'Erschaffe deine eigene Bronzeskulptur.' },
+            'mappenvorbereitung': { title: 'Mappenvorbereitung Intensiv', price: '590 / 3 Monate', desc: '87% Erfolgsquote bei Hochschulzulassungen.' },
+            'manga-kurs': { title: 'Manga Zeichnen', price: '260', desc: 'Ein Kurs für alle Manga-Fans. Wir erstellen eigene Charaktere und lernen die typischen Stile.' },
         };
 
         // FUNCTIONS
         function openSection(sectionId) {
-            // 1. Hide all sections
-            document.querySelectorAll('.content-overlay').forEach(el => {
-                el.classList.remove('active');
-            });
-
-            // 2. Show selected section
+            document.querySelectorAll('.content-overlay').forEach(el => el.classList.remove('active'));
             const target = document.getElementById('section-' + sectionId);
             if (target) target.classList.add('active');
 
-            // 3. Animate Triangles
             updateTriangles(true);
-
-            // 4. Update Navbar Background
             document.getElementById('navbar').style.background = '#E8B4BC';
         }
 
         function closeSection() {
-            // 1. Hide all sections
-            document.querySelectorAll('.content-overlay').forEach(el => {
-                el.classList.remove('active');
-            });
-
-            // 2. Reset Triangles
+            document.querySelectorAll('.content-overlay').forEach(el => el.classList.remove('active'));
             updateTriangles(false);
-
-            // 3. Reset Navbar Background
             document.getElementById('navbar').style.background = 'transparent';
         }
 
@@ -473,7 +648,6 @@
                 }
             });
 
-            // Hide/Show Center Content
             const centerContent = document.getElementById('center-content');
             if (isOpen) centerContent.classList.add('hidden');
             else centerContent.classList.remove('hidden');
