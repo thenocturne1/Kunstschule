@@ -3,27 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kunstschule am Spreebord - Berlin</title>
+    <title>Kunstschule am Spreebord</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <!-- React Core Libraries -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    <!-- Babel for JSX compilation in browser -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <style>
-        /* Global Resets */
+        /* GRUNDLEGENDE STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             font-family: 'DM Sans', sans-serif; 
             background: #FAFAF8; 
             color: #1A1A1A;
             overflow-x: hidden; 
         }
-        #root { min-height: 100vh; }
 
-        /* Simple Animation for the Drawing Hand */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        /* NAVIGATION BAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            padding: 1.3rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            z-index: 200;
+            transition: background 0.3s;
+        }
+
+        .navbar span {
+            color: white;
+            font-size: 0.95rem;
+            letter-spacing: 0.3em;
+            cursor: pointer;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .navbar span:hover { opacity: 0.8; }
+
+        /* HINTERGRUND DREIECKE */
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .triangle {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* Farben der Bereiche */
+        .bg-kurse { background: #E8B4BC; z-index: 45; }
+        .bg-info { background: #7BA896; z-index: 44; }
+        .bg-kalender { background: #E8DDD4; z-index: 43; }
+        .bg-faq { background: #DBBEA1; z-index: 42; }
+
+        /* Clip Paths (Startzustand: Mittlere X-Form) */
+        .clip-kurse { clip-path: polygon(0% 0%, 50% 50%, 100% 0%); }
+        .clip-info { clip-path: polygon(100% 0%, 100% 100%, 50% 50%); }
+        .clip-kalender { clip-path: polygon(0% 0%, 50% 50%, 0% 100%); }
+        .clip-faq { clip-path: polygon(50% 50%, 100% 100%, 0% 100%); }
+
+        /* Clip Paths (Aufgeklappter Zustand: Kleine Ecken) */
+        .clip-kursesmall { clip-path: polygon(0% 0%, 12% 0%, 0% 12%); }
+        .clip-infosmall { clip-path: polygon(88% 0%, 100% 0%, 100% 12%); }
+        .clip-kalendersmall { clip-path: polygon(0% 88%, 0% 100%, 12% 100%); }
+        .clip-faqsmall { clip-path: polygon(100% 88%, 100% 100%, 88% 100%); }
+
+        /* LABELS & ICONS */
+        .label-container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            transition: all 0.5s;
+        }
+
+        .pos-kurse { top: 18%; left: 50%; transform: translateX(-50%); }
+        .pos-info { top: 50%; right: 12%; transform: translateY(-50%); }
+        .pos-kalender { top: 50%; left: 12%; transform: translateY(-50%); }
+        .pos-faq { bottom: 18%; left: 50%; transform: translateX(-50%); }
+
+        /* Startbildschirm Center Content */
+        .center-content {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 110;
+            color: white;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+
+        .hidden { opacity: 0 !important; pointer-events: none !important; }
+
+        .center-title {
+            font-size: clamp(2.2rem, 5.5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .center-tagline {
+            font-style: italic;
+            font-size: clamp(0.95rem, 1.8vw, 1.3rem);
+            letter-spacing: 0.3em;
+            margin-top: 0.5rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* INHALTSBEREICHE (CONTENT SECTIONS) */
+        .content-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: #FAFAF8;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+            padding: 120px 2rem 50px 2rem;
+        }
+        
+        .content-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* KURS KARTEN */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .course-card {
+            border-left: 2px solid #ccc;
+            padding-left: 1.5rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .course-card:hover { border-left-color: #000; }
+        
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 400;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .modal.open { display: flex; }
+        .modal-content {
+            background: #FAFAF8;
+            max-width: 600px;
+            width: 100%;
+            padding: 3rem;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: none; border: none;
+            font-size: 1.5rem; cursor: pointer;
+        }
+
+        /* SVG Animation */
         @keyframes draw {
             from { stroke-dashoffset: 200; }
             to { stroke-dashoffset: 0; }
@@ -33,440 +212,293 @@
             stroke-dashoffset: 200;
             animation: draw 2.5s ease-out forwards;
         }
+
+        /* Helper Classes */
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #1A1A1A;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .btn:hover { background: #1A1A1A; color: white; }
+
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            .navbar span { font-size: 0.7rem; letter-spacing: 0.1em; }
+            .label-container svg { width: 24px; height: 24px; }
+            .label-container span { font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-const { useState, useMemo } = React;
-
-// --- SVG Components (Icons) ---
-
-const IconKurse = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
-        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
-        <path d="M2 2l7.586 7.586"></path>
-        <circle cx="11" cy="11" r="2"></circle>
-    </svg>
-);
-
-const IconTermine = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-        <line x1="16" y1="2" x2="16" y2="6"></line>
-        <line x1="8" y1="2" x2="8" y2="6"></line>
-        <line x1="3" y1="10" x2="21" y2="10"></line>
-    </svg>
-);
-
-const IconUeberUns = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-    </svg>
-);
-
-const IconKontakt = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-    </svg>
-);
-
-const DrawingHand = () => (
-    <svg width="240" height="240" viewBox="0 0 200 200" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.9, marginBottom: '1.5rem' }}>
-        {/* Simplified Hand Shape */}
-        <path d="M60 140 Q55 120 65 100 T90 85" fill="none" className="animate-draw" />
-        <path d="M90 85 Q100 80 110 90" fill="none" className="animate-draw" style={{animationDelay: '0.2s'}} />
-        <path d="M110 90 Q120 95 115 110" fill="none" className="animate-draw" style={{animationDelay: '0.4s'}} />
-        <path d="M115 110 Q110 130 125 145" fill="none" className="animate-draw" style={{animationDelay: '0.6s'}} />
+    <!-- HINTERGRUND -->
+    <div class="background-layer" id="background-layer">
         
-        {/* Pencil */}
-        <line x1="125" y1="145" x2="160" y2="180" strokeWidth="4" />
-        <polygon points="160,180 165,185 170,170 160,180" fill="white" stroke="none" />
-        
-        {/* Creative Swirls being drawn */}
-        <path d="M40 140 Q20 160 40 180 T80 170" strokeDasharray="4 4" opacity="0.6" className="animate-draw" style={{animationDelay: '1s'}} />
-        <path d="M140 60 Q160 40 180 60 T160 100" strokeDasharray="4 4" opacity="0.6" className="animate-draw" style={{animationDelay: '1.2s'}} />
-    </svg>
-);
-
-// --- Main Application ---
-
-function KunstschuleHome() {
-  const [activeSection, setActiveSection] = useState(null);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [formSent, setFormSent] = useState(false);
-  const [selectedKurs, setSelectedKurs] = useState(null);
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  // Course Database
-  const kurseData = {
-    'aquarell-vormittag': {
-      id: 'aquarell-vormittag', title: 'Aquarell am Vormittag',
-      desc: 'Entspanntes Malen in ruhiger Atmosphäre. Landschaften und Stillleben.',
-      time: 'Montags 10:00-12:00', duration: '12 Termine', price: '280',
-      level: 'Alle Level', category: 'vormittag', color: '#5BA88C',
-      fullDescription: 'Entspanntes Aquarellmalen am Vormittag. Wir üben Nass-in-Nass und Lasurtechniken.',
-      nextStart: new Date('2026-01-13'), spotsAvailable: 6
-    },
-    'zeichnen-basiskurs': {
-      id: 'zeichnen-basiskurs', title: 'Zeichnen Basiskurs',
-      desc: 'Grundlagen des akademischen Zeichnens: Form, Licht, Schatten.',
-      time: 'Montags 18:30-20:30', duration: '12 Termine', price: '310',
-      level: 'Anfänger', category: 'abend', color: '#E8B4BC',
-      fullDescription: 'Der Zeichnen Basiskurs vermittelt fundamentale Techniken des klassischen Zeichnens.',
-      nextStart: new Date('2026-01-13'), spotsAvailable: 4
-    },
-    'graffiti-jugend': {
-      id: 'graffiti-jugend', title: 'Graffiti für Kids & Teens',
-      desc: 'Von der Skizze zur Wand: Buchstaben, Characters und Styles.',
-      time: 'Samstags 13:00-16:00', duration: '8 Termine', price: '240',
-      level: '10-17 Jahre', category: 'jugend', color: '#E8B4BC',
-      fullDescription: 'Graffiti als Kunstform.',
-      nextStart: new Date('2026-01-18'), spotsAvailable: 8
-    },
-    'manga-kurs': { 
-      id: 'manga-kurs', title: 'Manga Zeichnen',
-      desc: 'Lerne Charakterdesign, Gesichtsausdrücke und Proportionen im Manga-Stil.',
-      time: 'Freitags 16:30-18:30', duration: '10 Termine', price: '260',
-      level: '10-16 Jahre', category: 'jugend', color: '#E8B4BC',
-      fullDescription: 'Ein Kurs für alle Manga-Fans. Wir erstellen eigene Charaktere und lernen die typischen Stile.',
-      nextStart: new Date('2026-01-17'), spotsAvailable: 10
-    },
-    'keramik-toepfern': {
-      id: 'keramik-toepfern', title: 'Keramik & Töpfern',
-      desc: 'Arbeiten mit Ton: Aufbautechniken und Glasur.',
-      time: 'Mittwochs 16:00-18:30', duration: '10 Termine', price: '420',
-      level: 'Alle Level', category: 'abend', color: '#E8B4BC',
-      fullDescription: 'Keramik von Grund auf lernen.',
-      nextStart: new Date('2026-01-15'), spotsAvailable: 6
-    },
-    'aktzeichnen': {
-      id: 'aktzeichnen', title: 'Aktzeichnen',
-      desc: 'Arbeiten nach lebendigem Modell. Auch spontan mit Tagesticket!',
-      time: 'Donnerstags 19:00-21:15', duration: '12er-Karte / Tag', price: '280 / 20',
-      level: 'Alle Level', category: 'abend', color: '#D4D0C8',
-      fullDescription: 'Aktzeichnen nach lebendigem Modell.',
-      nextStart: new Date('2026-01-16'), spotsAvailable: 99
-    },
-    'mappenvorbereitung': {
-      id: 'mappenvorbereitung', title: 'Mappenvorbereitung Intensiv',
-      desc: 'Systematische Vorbereitung auf Kunsthochschulen.',
-      time: 'Di & Do 16:00-18:30', duration: '3-6 Monate', price: '590',
-      level: 'Studienbewerber', category: 'mappe', color: '#5BA88C',
-      fullDescription: 'Hochvorbereitung für Kunststudien.',
-      nextStart: new Date('2026-02-03'), spotsAvailable: 8
-    },
-  };
-
-  const navItems = [
-    { id: 'kurse', label: 'Kurse', color: '#E8B4BC', iconComponent: <IconKurse /> },
-    { id: 'info', label: 'Über uns', color: '#7BA896', iconComponent: <IconUeberUns /> },
-    { id: 'kalender', label: 'Termine', color: '#E8DDD4', iconComponent: <IconTermine /> },
-    { id: 'faq', label: 'Kontakt', color: '#DBBEA1', iconComponent: <IconKontakt /> },
-  ];
-
-  const triangleClipPaths = {
-    kurse: 'polygon(0% 0%, 50% 50%, 100% 0%)',
-    info: 'polygon(100% 0%, 100% 100%, 50% 50%)',
-    kalender: 'polygon(0% 0%, 50% 50%, 0% 100%)',
-    faq: 'polygon(50% 50%, 100% 100%, 0% 100%)',
-  };
-
-  const triangleClipPathsExpanded = {
-    kurse: 'polygon(0% 0%, 12% 0%, 0% 12%)',
-    info: 'polygon(88% 0%, 100% 0%, 100% 12%)',
-    kalender: 'polygon(0% 88%, 0% 100%, 12% 100%)',
-    faq: 'polygon(100% 88%, 100% 100%, 88% 100%)',
-  };
-
-  const labelPositions = {
-    kurse: { top: '18%', left: '50%', transform: 'translateX(-50%)' },
-    info: { top: '50%', right: '12%', transform: 'translateY(-50%)' },
-    kalender: { top: '50%', left: '12%', transform: 'translateY(-50%)' },
-    faq: { bottom: '18%', left: '50%', transform: 'translateX(-50%)' },
-  };
-
-  const handleTriangleClick = (id) => {
-    if (activeSection === null) {
-      setActiveSection(id);
-      setSelectedKurs(null);
-    } else if (activeSection === id) {
-      setActiveSection(null);
-      setSelectedKurs(null);
-    }
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    alert('Vielen Dank! (Dies ist eine Demo - E-Mail würde hier geöffnet werden)');
-    setFormSent(true);
-    setTimeout(() => setFormSent(false), 3000);
-  };
-
-  const handleAnmeldung = (e, kursName) => {
-    e.preventDefault();
-    e.stopPropagation();
-    alert(`Anmeldung für: ${kursName} (Demo)`);
-  };
-
-  const openKursDetail = (kursId) => setSelectedKurs(kursId);
-  const closeKursDetail = () => setSelectedKurs(null);
-
-  // Modal Component
-  const KursDetailModal = ({ kursId, onClose }) => {
-    const kurs = kurseData[kursId];
-    if (!kurs) return null;
-    return (
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }} onClick={onClose}>
-        <div style={{ background: '#FAFAF8', maxWidth: '600px', width: '100%', maxHeight: '80vh', overflow: 'auto', padding: '3rem', position: 'relative' }} onClick={(e) => e.stopPropagation()}>
-          <button onClick={onClose} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2rem', marginBottom: '0.5rem' }}>{kurs.title}</h2>
-          <p style={{ color: '#666', marginBottom: '2rem' }}>{kurs.time} · {kurs.duration}</p>
-          <div style={{ whiteSpace: 'pre-line', marginBottom: '2rem' }}>{kurs.fullDescription}</div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '1.5rem' }}>EUR {kurs.price}</span>
-            <button onClick={(e) => handleAnmeldung(e, kurs.title)} style={{ background: '#1A1A1A', color: '#fff', border: 'none', padding: '0.75rem 2rem', cursor: 'pointer' }}>Anmelden</button>
-          </div>
+        <!-- KURSE (Pink) -->
+        <div class="triangle bg-kurse clip-kurse" id="tri-kurse" onclick="openSection('kurse')">
+            <div class="label-container pos-kurse" id="label-kurse">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                <span>Kurse</span>
+            </div>
         </div>
-      </div>
-    );
-  };
 
-  const AnmeldeButton = ({ kursName, small = false }) => (
-    <button 
-      onClick={(e) => handleAnmeldung(e, kursName)}
-      onMouseDown={(e) => e.stopPropagation()}
-      style={{
-        fontSize: small ? '0.7rem' : '0.75rem',
-        padding: small ? '0.4rem 0.8rem' : '0.5rem 1rem',
-        cursor: 'pointer',
-        border: '1px solid #1A1A1A',
-        background: 'transparent',
-        color: '#1A1A1A',
-      }}
-    >Anmelden</button>
-  );
-
-  const sectionContent = {
-    kurse: (
-      <div style={{ padding: '4rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '2.8rem', fontWeight: 300, marginBottom: '1rem' }}>Kursangebot</h2>
-        <p style={{ fontSize: '1.1rem', color: '#555', marginBottom: '4rem', maxWidth: '650px', lineHeight: 1.7 }}>
-          Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-          {Object.values(kurseData).map((kurs) => (
-            <div key={kurs.id} style={{ borderLeft: `2px solid ${kurs.color}`, paddingLeft: '1.5rem', cursor: 'pointer' }} onClick={() => openKursDetail(kurs.id)}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <h4 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.3rem', fontWeight: 400 }}>{kurs.title}</h4>
-                <span style={{ fontSize: '0.7rem', color: '#888', background: '#f5f5f3', padding: '0.25rem 0.5rem' }}>{kurs.level}</span>
-              </div>
-              <p style={{ fontSize: '0.9rem', color: '#555', marginBottom: '1rem' }}>{kurs.desc}</p>
-              <div style={{ fontSize: '0.8rem', color: '#888' }}>{kurs.time}</div>
-              <div style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.15rem' }}>EUR {kurs.price}</span>
-                <AnmeldeButton kursName={kurs.title} />
-              </div>
+        <!-- INFO (Green) -->
+        <div class="triangle bg-info clip-info" id="tri-info" onclick="openSection('info')">
+            <div class="label-container pos-info" id="label-info">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Über uns</span>
             </div>
-          ))}
         </div>
-      </div>
-    ),
 
-    info: (
-      <div style={{ padding: '4rem 2rem', maxWidth: '800px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '2.8rem', fontWeight: 300, marginBottom: '1rem' }}>Über uns</h2>
-        <p style={{ fontSize: '1.1rem', color: '#555', marginBottom: '4rem', lineHeight: 1.7 }}>
-          Ein Ort zum Lernen, Experimentieren und Wachsen - in Berlin-Kreuzberg.
-        </p>
-        <section style={{ marginBottom: '4rem', background: '#7BA896', color: '#fff', marginLeft: '-2rem', marginRight: '-2rem', padding: '3rem 2rem' }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.6rem', fontWeight: 300, marginBottom: '2.5rem' }}>Was uns auszeichnet</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem' }}>
-            <div>
-              <h4 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.3rem', fontWeight: 400, marginBottom: '0.75rem' }}>Praktizierende Künstler</h4>
-              <p style={{ opacity: 0.9, lineHeight: 1.7 }}>Alle Dozierenden sind im Kunstmarkt aktiv.</p>
+        <!-- TERMINE (Grey) -->
+        <div class="triangle bg-kalender clip-kalender" id="tri-kalender" onclick="openSection('kalender')">
+            <div class="label-container pos-kalender" id="label-kalender">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Termine</span>
             </div>
-            <div>
-              <h4 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.3rem', fontWeight: 400, marginBottom: '0.75rem' }}>Individuelle Betreuung</h4>
-              <p style={{ opacity: 0.9, lineHeight: 1.7 }}>Kleine Gruppen von 8-12 Teilnehmern.</p>
-            </div>
-          </div>
-        </section>
-      </div>
-    ),
-
-    kalender: (
-      <div style={{ padding: '4rem 2rem', maxWidth: '1100px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '2.8rem', fontWeight: 300, marginBottom: '4rem' }}>Termine</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {Object.values(kurseData).map((kurs) => (
-            <div key={kurs.id} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1rem 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} onClick={() => openKursDetail(kurs.id)}>
-              <div style={{ width: '80px', fontWeight: 600 }}>{kurs.nextStart.toLocaleDateString('de-DE', {day: '2-digit', month: 'short'})}</div>
-              <div style={{ width: '4px', height: '40px', background: kurs.color }}></div>
-              <div>
-                <h4 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.1rem', fontWeight: 400 }}>{kurs.title}</h4>
-                <span style={{ fontSize: '0.8rem', color: '#888' }}>{kurs.time}</span>
-              </div>
-            </div>
-          ))}
         </div>
-      </div>
-    ),
 
-    faq: (
-      <div style={{ padding: '4rem 2rem', maxWidth: '1000px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '2.8rem', fontWeight: 300, marginBottom: '1rem' }}>FAQ & Kontakt</h2>
-        <section style={{ marginBottom: '4rem' }}>
-          <h3 style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: '1.5rem', fontWeight: 400, marginBottom: '2rem' }}>Häufige Fragen</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {[
-              { q: 'Brauche ich Vorkenntnisse?', a: 'Für die Basiskurse nicht.' },
-              { q: 'Kann ich eine Probestunde machen?', a: 'Ja, wir bieten Schnupperstunden an.' },
-              { q: 'Welches Material brauche ich?', a: 'Materialliste erhältlich nach Anmeldung.' },
-            ].map((item, i) => (
-              <div key={i} style={{ borderBottom: '1px solid #eee', paddingBottom: '1.5rem' }}>
-                <h4 style={{ fontSize: '1.15rem', fontWeight: 400, marginBottom: '0.5rem' }}>{item.q}</h4>
-                <p style={{ fontSize: '0.95rem', color: '#555', lineHeight: 1.7 }}>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section style={{ background: '#DBBEA1', marginLeft: '-2rem', marginRight: '-2rem', padding: '3rem 2rem' }}>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: 400, marginBottom: '2rem' }}>Kontakt</h3>
-          <form onSubmit={handleFormSubmit}>
-            <div style={{ display: 'grid', gap: '1rem', marginBottom: '1rem' }}>
-              <input type="text" placeholder="Name" required style={{ padding: '1rem', border: '1px solid #ddd', background: '#fafafa', width: '100%' }} />
-              <input type="email" placeholder="E-Mail" required style={{ padding: '1rem', border: '1px solid #ddd', background: '#fafafa', width: '100%' }} />
+        <!-- KONTAKT (Beige) -->
+        <div class="triangle bg-faq clip-faq" id="tri-faq" onclick="openSection('faq')">
+            <div class="label-container pos-faq" id="label-faq">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <span>Kontakt</span>
             </div>
-            <textarea placeholder="Deine Nachricht" rows={5} required style={{ padding: '1rem', border: '1px solid #ddd', background: '#fafafa', width: '100%', marginBottom: '1rem' }}></textarea>
-            <button type="submit" style={{ background: '#1A1A1A', color: '#fff', border: 'none', padding: '1rem 2.5rem', cursor: 'pointer' }}>Absenden</button>
-          </form>
-        </section>
-      </div>
-    ),
-  };
+        </div>
 
-  return (
-    <div style={{ fontFamily: 'Georgia, serif', background: '#FAFAF8', color: '#1A1A1A', minHeight: '100vh', position: 'relative' }}>
-      {selectedKurs && <KursDetailModal kursId={selectedKurs} onClose={closeKursDetail} />}
-
-      {/* Top Navigation Bar */}
-      <div style={{
-        position: 'fixed', top: 0, left: 0, right: 0,
-        background: activeSection ? '#E8B4BC' : 'transparent',
-        padding: '1.3rem 2rem', display: 'flex', justifyContent: 'center', gap: '4rem',
-        zIndex: 200, transition: 'background 0.3s'
-      }}>
-        {['HOME', 'KURSE', 'TERMINE', 'ÜBER UNS', 'KONTAKT'].map((item, i) => (
-          <span 
-            key={i}
-            onClick={() => {
-              if (item === 'HOME') setActiveSection(null);
-              else if (item === 'KURSE') setActiveSection('kurse');
-              else if (item === 'TERMINE') setActiveSection('kalender');
-              else if (item === 'ÜBER UNS') setActiveSection('info');
-              else if (item === 'KONTAKT') setActiveSection('faq');
-            }}
-            style={{
-              fontSize: '0.95rem', color: '#fff', cursor: 'pointer', letterSpacing: '0.3em',
-              textShadow: activeSection ? 'none' : '0 1px 3px rgba(0,0,0,0.2)'
-            }}
-          >{item}</span>
-        ))}
-      </div>
-
-      {/* Content Area */}
-      <div style={{ 
-        position: activeSection ? 'relative' : 'fixed', top: 0, left: 0, width: '100%', minHeight: '100vh', 
-        zIndex: activeSection ? 50 : 10, background: '#FAFAF8', opacity: activeSection ? 1 : 0, 
-        pointerEvents: activeSection ? 'auto' : 'none', transition: 'opacity 0.4s ease' 
-      }}>
-        {activeSection && (
-          <div style={{ paddingTop: '80px', paddingBottom: '120px' }}>
-            {sectionContent[activeSection]}
-          </div>
-        )}
-      </div>
-
-      {/* Triangles Navigation */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: activeSection ? 40 : 100, pointerEvents: 'none' }}>
-        {navItems.map((item) => {
-          const isActive = activeSection === item.id;
-          const isOther = activeSection !== null && activeSection !== item.id;
-          const clipPath = (activeSection !== null) ? triangleClipPathsExpanded[item.id] : triangleClipPaths[item.id];
-          const labelStyle = (activeSection !== null) ? labelPositionsExpanded[item.id] : labelPositions[item.id];
-          const isClickable = activeSection === null || isActive;
-          
-          return (
-            <div
-              key={item.id}
-              onClick={() => isClickable && handleTriangleClick(item.id)}
-              style={{
-                position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-                background: item.color, clipPath: clipPath, opacity: isOther ? 0.85 : 0.88,
-                transition: 'clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease',
-                cursor: isClickable ? 'pointer' : 'default', pointerEvents: isClickable ? 'auto' : 'none',
-                zIndex: isActive ? 50 : 45
-              }}
-            >
-              {activeSection === null && (
-                <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', ...labelStyle }}>
-                  {item.iconComponent}
-                  <span style={{ fontFamily: "'Cormorant Garamond", Georgia, serif', fontSize: 'clamp(1rem, 2vw, 1.3rem)', fontWeight: 400, color: '#fff', letterSpacing: '0.03em' }}>{item.label}</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
-
-        {/* Center Logo - KUNSTSCHULE AM SPREEBORD */}
-        {!activeSection && (
-          <div style={{
-            position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-            textAlign: 'center', zIndex: 110, pointerEvents: 'none',
-            display: 'flex', flexDirection: 'column', alignItems: 'center'
-          }}>
-            <DrawingHand />
-            
-            <h1 style={{
-              fontFamily: "'Cormorant Garamond", Georgia, serif',
-              fontSize: 'clamp(2.2rem, 5.5vw, 4rem)', fontWeight: 600, color: '#fff',
-              letterSpacing: '0.1em', textTransform: 'uppercase', lineHeight: 1.1, marginBottom: '0.5rem',
-              textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-            }}>
-              Kunstschule<br />am Spreebord
-            </h1>
-            
-            <p style={{
-              fontFamily: "'Cormorant Garamond", Georgia, serif',
-              fontSize: 'clamp(0.95rem, 1.8vw, 1.3rem)', color: 'rgba(255,255,255,0.95)',
-              letterSpacing: '0.3em', fontStyle: 'italic', marginTop: '0.5rem', textShadow: '0 1px 2px rgba(0,0,0,0.1)'
-            }}>
-              Kreativität am Wasser
-            </p>
-          </div>
-        )}
-
-        {/* Center dot */}
-        <div style={{
-          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          width: '6px', height: '6px', background: '#fff', borderRadius: '50%',
-          zIndex: 105, pointerEvents: 'none', opacity: activeSection ? 0 : 0.5, transition: 'opacity 0.4s ease'
-        }} />
-      </div>
+        <!-- CENTER LOGO -->
+        <div class="center-content" id="center-content">
+            <svg width="240" height="240" viewBox="0 0 200 200" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.9; margin-bottom: 1.5rem;">
+                <path d="M60 140 Q55 120 65 100 T90 85" fill="none" class="animate-draw" />
+                <path d="M90 85 Q100 80 110 90" fill="none" class="animate-draw" style="animation-delay: 0.2s" />
+                <path d="M110 90 Q120 95 115 110" fill="none" class="animate-draw" style="animation-delay: 0.4s" />
+                <path d="M115 110 Q110 130 125 145" fill="none" class="animate-draw" style="animation-delay: 0.6s" />
+                <line x1="125" y1="145" x2="160" y2="180" stroke-width="4" />
+                <polygon points="160,180 165,185 170,170 160,180" fill="white" stroke="none" />
+                <path d="M40 140 Q20 160 40 180 T80 170" stroke-dasharray="4 4" opacity="0.6" class="animate-draw" style="animation-delay: 1s" />
+                <path d="M140 60 Q160 40 180 60 T160 100" stroke-dasharray="4 4" opacity="0.6" class="animate-draw" style="animation-delay: 1.2s" />
+            </svg>
+            <h1 class="center-title">Kunstschule<br />am Spreebord</h1>
+            <p class="center-tagline">Kreativität am Wasser</p>
+        </div>
     </div>
-  );
-}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<KunstschuleHome />);
+    <!-- NAVIGATION OBEN -->
+    <nav class="navbar" id="navbar">
+        <span onclick="closeSection()">HOME</span>
+        <span onclick="openSection('kurse')">KURSE</span>
+        <span onclick="openSection('kalender')">TERMINE</span>
+        <span onclick="openSection('info')">ÜBER UNS</span>
+        <span onclick="openSection('faq')">KONTAKT</span>
+    </nav>
+
+    <!-- SECTIONS INHALT -->
+    
+    <!-- KURSE SECTION -->
+    <div id="section-kurse" class="content-overlay">
+        <div class="container">
+            <h2 style="font-size: 2.8rem; font-weight: 300; margin-bottom: 1rem;">Kursangebot</h2>
+            <p style="color: #555; max-width: 650px; line-height: 1.7; margin-bottom: 2rem;">Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung.</p>
+            <div class="course-grid">
+                <!-- Beispiel Kurs -->
+                <div class="course-card" onclick="openModal('aquarell')">
+                    <h4 style="font-size: 1.3rem; font-weight: 400;">Aquarell am Vormittag</h4>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Entspanntes Malen mit Aquarellfarben.</p>
+                    <div style="font-size: 0.8rem; color: #888;">Montags 10:00-12:00</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 1.1rem;">EUR 280</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openModal('manga')">
+                    <h4 style="font-size: 1.3rem; font-weight: 400;">Manga Zeichnen</h4>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Lerne Charakterdesign und Proportionen.</p>
+                    <div style="font-size: 0.8rem; color: #888;">Freitags 16:30-18:30</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 1.1rem;">EUR 260</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openModal('keramik')">
+                    <h4 style="font-size: 1.3rem; font-weight: 400;">Keramik & Töpfern</h4>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0.5rem 0;">Arbeiten mit Ton und Glasur.</p>
+                    <div style="font-size: 0.8rem; color: #888;">Mittwochs 16:00-18:30</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 1.1rem;">EUR 420</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFO SECTION -->
+    <div id="section-info" class="content-overlay">
+        <div class="container">
+            <h2 style="font-size: 2.8rem; font-weight: 300; margin-bottom: 1rem;">Über uns</h2>
+            <p style="color: #555; max-width: 600px; line-height: 1.7; margin-bottom: 4rem;">Ein Ort zum Lernen, Experimentieren und Wachsen - in Berlin-Kreuzberg.</p>
+            <section style="background: #7BA896; color: white; padding: 3rem; border-radius: 8px;">
+                <h3 style="font-size: 1.6rem; font-weight: 300; margin-bottom: 2.5rem;">Was uns auszeichnet</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2.5rem;">
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400; margin-bottom: 0.75rem;">Praktizierende Künstler</h4>
+                        <p style="opacity: 0.9; line-height: 1.7;">Alle Dozierenden sind im Kunstmarkt aktiv.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.3rem; font-weight: 400; margin-bottom: 0.75rem;">Individuelle Betreuung</h4>
+                        <p style="opacity: 0.9; line-height: 1.7;">Kleine Gruppen von 8-12 Teilnehmern.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- TERMINE SECTION -->
+    <div id="section-kalender" class="content-overlay">
+        <div class="container">
+            <h2 style="font-size: 2.8rem; font-weight: 300; margin-bottom: 4rem;">Termine</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee;">
+                    <div style="width: 80px; font-weight: 600;">13. Jan</div>
+                    <div style="width: 4px; height: 40px; background: #5BA88C;"></div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; font-weight: 400;">Aquarell am Vormittag</h4>
+                        <span style="font-size: 0.8rem; color: #888;">10:00 - 12:00</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee;">
+                    <div style="width: 80px; font-weight: 600;">15. Jan</div>
+                    <div style="width: 4px; height: 40px; background: #E8B4BC;"></div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; font-weight: 400;">Manga Zeichnen</h4>
+                        <span style="font-size: 0.8rem; color: #888;">16:30 - 18:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KONTAKT SECTION -->
+    <div id="section-faq" class="content-overlay">
+        <div class="container">
+            <h2 style="font-size: 2.8rem; font-weight: 300; margin-bottom: 1rem;">Kontakt</h2>
+            <section style="background: #DBBEA1; padding: 3rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 400; margin-bottom: 2rem;">Schreib uns</h3>
+                <form onsubmit="event.preventDefault(); alert('Nachricht gesendet (Demo)!');">
+                    <input type="text" placeholder="Name" required style="padding: 1rem; border: 1px solid #ddd; background: #fafafa; width: 100%; margin-bottom: 1rem;">
+                    <input type="email" placeholder="E-Mail" required style="padding: 1rem; border: 1px solid #ddd; background: #fafafa; width: 100%; margin-bottom: 1rem;">
+                    <textarea placeholder="Deine Nachricht" rows="5" required style="padding: 1rem; border: 1px solid #ddd; background: #fafafa; width: 100%; margin-bottom: 1rem;"></textarea>
+                    <button type="submit" style="background: #1A1A1A; color: white; border: none; padding: 1rem 2.5rem; cursor: pointer; width: 100%;">Absenden</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModalForce()">×</button>
+            <h2 id="modal-title" style="font-size: 2rem; margin-bottom: 0.5rem;">Kurs Titel</h2>
+            <p id="modal-desc" style="color: #666; margin-bottom: 2rem;">Beschreibung...</p>
+            <div style="border-top: 1px solid #eee; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1.5rem;">EUR 0</span>
+                <button class="btn" style="background: #1A1A1A; color: white;">Anmelden</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATA
+        const courses = {
+            'aquarell': { title: 'Aquarell am Vormittag', price: '280', desc: 'Entspanntes Aquarellmalen am Vormittag. Wir üben Nass-in-Nass und Lasurtechniken.' },
+            'manga': { title: 'Manga Zeichnen', price: '260', desc: 'Ein Kurs für alle Manga-Fans. Wir erstellen eigene Charaktere und lernen die typischen Stile.' },
+            'keramik': { title: 'Keramik & Töpfern', price: '420', desc: 'Keramik von Grund auf lernen. Ton und Glasuren inklusive.' }
+        };
+
+        // FUNCTIONS
+        function openSection(sectionId) {
+            // 1. Hide all sections
+            document.querySelectorAll('.content-overlay').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // 2. Show selected section
+            const target = document.getElementById('section-' + sectionId);
+            if (target) target.classList.add('active');
+
+            // 3. Animate Triangles
+            updateTriangles(true);
+
+            // 4. Update Navbar Background
+            document.getElementById('navbar').style.background = '#E8B4BC';
+        }
+
+        function closeSection() {
+            // 1. Hide all sections
+            document.querySelectorAll('.content-overlay').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // 2. Reset Triangles
+            updateTriangles(false);
+
+            // 3. Reset Navbar Background
+            document.getElementById('navbar').style.background = 'transparent';
+        }
+
+        function updateTriangles(isOpen) {
+            const mappings = [
+                { id: 'kurse', smallClass: 'clip-kursesmall', bigClass: 'clip-kurse' },
+                { id: 'info', smallClass: 'clip-infosmall', bigClass: 'clip-info' },
+                { id: 'kalender', smallClass: 'clip-kalendersmall', bigClass: 'clip-kalender' },
+                { id: 'faq', smallClass: 'clip-faqsmall', bigClass: 'clip-faq' }
+            ];
+
+            mappings.forEach(item => {
+                const el = document.getElementById('tri-' + item.id);
+                const label = document.getElementById('label-' + item.id);
+                
+                if (isOpen) {
+                    el.classList.remove(item.bigClass);
+                    el.classList.add(item.smallClass);
+                    if (label) label.classList.add('hidden');
+                } else {
+                    el.classList.remove(item.smallClass);
+                    el.classList.add(item.bigClass);
+                    if (label) label.classList.remove('hidden');
+                }
+            });
+
+            // Hide/Show Center Content
+            const centerContent = document.getElementById('center-content');
+            if (isOpen) centerContent.classList.add('hidden');
+            else centerContent.classList.remove('hidden');
+        }
+
+        function openModal(courseId) {
+            const data = courses[courseId];
+            if (!data) return;
+
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.querySelector('#modal span').innerText = 'EUR ' + data.price;
+            
+            document.getElementById('modal').classList.add('open');
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'modal') {
+                document.getElementById('modal').classList.remove('open');
+            }
+        }
+        
+        function closeModalForce() {
+            document.getElementById('modal').classList.remove('open');
+        }
     </script>
 </body>
 </html>
