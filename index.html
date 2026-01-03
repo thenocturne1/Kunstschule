@@ -29,18 +29,13 @@
         .clip-infosmall { clip-path: polygon(88% 0%, 100% 0%, 100% 12%); }
         .clip-kalendersmall { clip-path: polygon(0% 88%, 0% 100%, 12% 100%); }
         .clip-faqsmall { clip-path: polygon(100% 88%, 100% 100%, 88% 100%); }
-        
-        /* LABELS: Dünner (Font-weight 400) */
         .label-container { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: white; transition: all 0.5s; opacity: 1; pointer-events: none; }
         .label-container span { letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.9rem; font-weight: 400; }
         .pos-kurse { top: 18%; left: 50%; transform: translateX(-50%); }
         .pos-info { top: 50%; right: 12%; transform: translateY(-50%); }
         .pos-kalender { top: 50%; left: 12%; transform: translateY(-50%); }
         .pos-faq { bottom: 18%; left: 50%; transform: translateX(-50%); }
-        
-        /* CENTER TITLE: GROSSBUCHSTABEN */
         .center-title { font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: 0.15em; line-height: 1.1; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.1); text-transform: uppercase; }
-        
         .floating-shape { position: absolute; pointer-events: none; z-index: 30; }
         .shape-circle { border-radius: 50%; border-style: solid; border-color: white; animation-name: float; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
         .shape-line { background: white; animation-name: float; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
@@ -54,26 +49,8 @@
         .kas-abbr { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(4rem, 10vw, 9rem); font-weight: 900; letter-spacing: -0.02em; color: white; line-height: 0.8; margin-bottom: 1rem; text-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; display: inline-block; }
         .kas-abbr::after { content: ''; display: block; width: 60px; height: 4px; background: white; margin: 0 auto; border-radius: 2px; margin-top: 10px; }
         .center-tagline { font-style: italic; font-size: clamp(0.8rem, 1.2vw, 1.1rem); letter-spacing: 0.3em; margin-top: 1.5rem; font-weight: 500; opacity: 0.9; }
-        
-        /* BILD STYLING: Flexibel statt Quadratisch */
-        .section-image {
-            display: block;
-            width: 100%;        /* Füllt Container */
-            height: auto;       /* Behält Seitenverhältnis bei */
-            max-width: 700px;   /* Max-Größe (Standard) */
-            margin: 2.5rem 0;   /* Abstand nach oben/unten */
-            border-radius: 8px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        /* MOBILE ANPASSUNG */
-        @media (max-width: 768px) {
-            .section-image {
-                max-width: 100%; /* Handy: Volle Breite nutzen */
-                margin: 1.5rem 0;
-            }
-        }
-
+        .section-image { display: block; width: 100%; height: auto; max-width: 700px; margin: 2.5rem 0; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) { .section-image { max-width: 100%; margin: 1.5rem 0; } .navbar { gap: 1.5rem; } .navbar span { font-size: 0.7rem; letter-spacing: 0.1em; } }
         .content-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #FAFAF8; z-index: 5; opacity: 0; pointer-events: none; transition: opacity 0.6s ease, transform 0.6s ease; overflow-y: auto; padding: 120px 2rem 50px 2rem; transform: scale(1.05); }
         .content-overlay.active { opacity: 1; pointer-events: auto; transform: scale(1); }
         .container { max-width: 1100px; margin: 0 auto; }
@@ -129,7 +106,7 @@
     <div class="background-layer" id="background-layer">
         <div class="triangle bg-kurse clip-kurse" id="tri-kurse" data-direction="top" onclick="openSection('kurse')">
             <div class="label-container pos-kurse" id="label-kurse">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><circle cx="11" cy="11" r="2"></circle></svg>
                 <span>Kurse</span>
             </div>
         </div>
@@ -183,10 +160,9 @@
             <h2 class="section-title">Kursangebot</h2>
             <p class="section-intro">Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung - in unseren Kursen arbeiten wir in kleinen Gruppen mit individueller Betreuung.</p>
             
-            <!-- BILD 1: AQUARELL - SEHR BREIT -->
-            <!-- HIER DEINEN RAW LINK EINFÜGEN -->
-            <img src="https://via.placeholder.com/1200x600?text=HIER+RAW+LINK+EINFUEGEN" alt="Aquarell" class="section-image" style="max-width: 900px;">
-
+            <!-- BILD: Aquarell - Groß -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell.jpeg" alt="Aquarellmalerei" style="width: 100%; max-width: 500px; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin: 2rem 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+            
             <div class="category-header"><h3>Vormittagskurse</h3><span class="category-badge" style="color:#5BA88C">Entspannt am Vormittag</span></div>
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('aquarell-vormittag')"><div><h4>Aquarell am Vormittag</h4><p>Entspanntes Malen in ruhiger Atmosphäre. Landschaften und Stillleben.</p><span class="level-badge">Alle Level</span><div class="time-info">Mo 10:00-12:00 · 12 Termine</div></div><div class="card-footer"><span class="price">EUR 280</span><button class="btn">Anmelden</button></div></div>
@@ -196,10 +172,9 @@
                 <div class="course-card" onclick="openModal('offenes-atelier')"><div><h4>Offenes Atelier</h4><p>Freies Arbeiten an eigenen Projekten mit Anleitung.</p><span class="level-badge">Drop-in</span><div class="time-info">Fr 10:00-12:00 · Fortlaufend</div></div><div class="card-footer"><span class="price">EUR 15/Tag</span><button class="btn">Anmelden</button></div></div>
             </div>
             
-            <!-- BILD 2: TON / HAND - MITTELGROSS (ZENTRIERT) -->
-            <!-- HIER DEINEN RAW LINK EINFÜGEN -->
-            <img src="https://via.placeholder.com/600x600?text=HIER+RAW+LINK+EINFUEGEN" alt="Ton Hand" class="section-image" style="max-width: 500px; margin: 2.5rem auto;">
-
+            <!-- BILD: Ölmalerei - Mittel -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/oelmalerei.jpeg" alt="Ölmalerei Kurs" style="width: 100%; max-width: 380px; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin: 3rem 0 2rem 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+            
             <div class="category-header"><h3>Abendkurse</h3><span class="category-badge" style="color:#E8B4BC">Nach Feierabend</span></div>
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('zeichnen-basiskurs')"><div><h4>Zeichnen Basiskurs</h4><p>Grundlagen des akademischen Zeichnens: Form, Licht, Schatten.</p><span class="level-badge">Anfänger</span><div class="time-info">Mo 18:30-20:30 · 12 Termine</div></div><div class="card-footer"><span class="price">EUR 310</span><button class="btn">Anmelden</button></div></div>
@@ -222,12 +197,11 @@
                 <div class="course-card" onclick="openModal('ferienkurs-keramik')"><div><h4>Keramik für Kids (8-14 J.)</h4><p>Töpfern, Formen, Glasieren - deine Kunstwerke aus Ton.</p><span class="level-badge">8-14 Jahre</span><div class="time-info">Mo-Fr 09:30-13:30</div></div><div class="card-footer"><span class="price">EUR 200</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('kunstcamp')"><div><h4>Kunstcamp Sommer</h4><p>Die große Sommerferienkreativwoche.</p><span class="level-badge">6-14 Jahre</span><div class="time-info">Mo-Fr 09:00-14:00</div></div><div class="card-footer"><span class="price">EUR 220</span><button class="btn">Anmelden</button></div></div>
             </div>
+            
+            <!-- BILD: Ton Hand - Klein -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/ton_hand.jpeg" alt="Bildhauerei und Ton" style="width: 100%; max-width: 320px; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin: 3rem 0 2rem 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+            
             <div class="category-header"><h3>Intensivprogramme</h3><span class="category-badge" style="color:#5BA88C">Mappe & Bronzeguss</span></div>
-
-            <!-- BILD 3: INTENSIV - BREIT (ETWAS KLEINER ALS BILD 1) -->
-            <!-- HIER DEINEN RAW LINK EINFÜGEN -->
-            <img src="https://via.placeholder.com/1200x800?text=HIER+RAW+LINK+EINFUEGEN" alt="Intensivprogramm" class="section-image" style="max-width: 800px;">
-
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('mappenvorbereitung')"><div><h4>Mappenvorbereitung</h4><p>Systematische Vorbereitung auf Kunsthochschulen.</p><span class="level-badge">Studienbewerber</span><div class="time-info">Di & Do 16:00-18:30</div></div><div class="card-footer"><span class="price">EUR 590/3 Mon.</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('bildhauerei-bronze')"><div><h4>Bildhauerei & Bronzeguss</h4><p>Vom Tonmodell zur Bronzeskulptur. Auch für Anfänger!</p><span class="level-badge">Gießerei</span><div class="time-info">Sa 10:00-14:00 · 6 Monate</div></div><div class="card-footer"><span class="price">EUR 1.450</span><button class="btn">Anmelden</button></div></div>
@@ -325,7 +299,7 @@
             <div class="contact-info">
                 <div><h4>Adresse</h4><p>AM SPREEBORD 9<br>10589 BERLIN</p></div>
                 <div><h4>Anfahrt</h4><p>U7 Richard Wagner Platz<br>Bus M29 & 140</p></div>
-                <div><h4>Erreichbarkeit</h4><p>info@kunstschule-spreebord.de<br>017622996566<br>Mo-Fr 16-19 Uhr</p></div>
+                <div><h4>Erreichbarkeit</h4><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec85828a83ac8799829f989f8f84998089c19f9c9e89898e839e88c28889">[email&#160;protected]</a><br>017622996566<br>Mo-Fr 16-19 Uhr</p></div>
             </div>
         </div>
     </div>
@@ -343,74 +317,59 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // DATA
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // VOLLSTAENDIGE KURSDATEN
         const courses = {
-            'aquarell-vormittag': { title: 'Aquarell am Vormittag', level: 'Alle Level', time: 'Mo 10:00-12:00 · 12 Termine', price: 'EUR 280', desc: 'Entspanntes Aquarellmalen am Vormittag - für alle, die in ruhiger Atmosphäre kreativ sein möchten.\n\nKursinhalte:\n- Grundlagen der Aquarelltechnik\n- Nass-in-Nass und Lasurtechniken\n- Landschaften, Blumen und Stillleben\n- Farbmischung und Farbharmonie' },
-            'zeichnen-malen-vormittag': { title: 'Zeichnen & Malen am Vormittag', level: 'Alle Level', time: 'Di 10:00-12:30 · 12 Termine', price: 'EUR 320', desc: 'Ein Kurs für alle, die das Zeichnen und Malen (wieder) entdecken möchten.' },
-            'keramik-vormittag': { title: 'Keramik am Vormittag', level: 'Alle Level', time: 'Mi 10:00-12:00 · 10 Termine', price: 'EUR 360', desc: 'Keramik am Vormittag - Ton und Glasuren inklusive.' },
-            'portrait-vormittag': { title: 'Porträtzeichnen am Vormittag', level: 'Alle Level', time: 'Do 10:00-12:00 · 10 Termine', price: 'EUR 280', desc: 'Porträtzeichnen am Vormittag.' },
-            'offenes-atelier': { title: 'Offenes Atelier am Vormittag', level: 'Drop-in', time: 'Fr 10:00-12:00 · Fortlaufend', price: 'EUR 15/Tag', desc: 'Das Offene Atelier - komm vorbei und arbeite an eigenen Projekten.' },
-            'zeichnen-basiskurs': { title: 'Zeichnen Basiskurs', level: 'Anfänger', time: 'Mo 18:30-20:30 · 12 Termine', price: 'EUR 310', desc: 'Der Zeichnen Basiskurs vermittelt fundamentale Techniken des klassischen akademischen Zeichnens.' },
-            'malerei-basiskurs': { title: 'Malerei Basiskurs', level: 'Anfänger', time: 'Di 19:30-21:30 · 12 Termine', price: 'EUR 310', desc: 'Im Malerei Basiskurs tauchst du ein in die Welt der Farbe.' },
-            'freie-malerei': { title: 'Freie Malerei & Grafik', level: 'Mit Vorkenntnissen', time: 'Mi 19:00-21:00 · 12 Termine', price: 'EUR 340', desc: 'Schwerpunkt auf der Entwicklung deiner eigenen künstlerischen Arbeiten.' },
-            'aktzeichnen': { title: 'Aktzeichnen', level: 'Alle Level', time: 'Do 19:00-21:15 · 12er-Karte', price: 'EUR 280/20', desc: 'Aktzeichnen nach lebendigem Modell.' },
-            'aquarell-frei': { title: 'Freie Aquarellmalerei', level: 'Alle Level', time: 'Fr 17:00-19:00 · 12 Termine', price: 'EUR 340', desc: 'Aquarell ist die Technik der Leichtigkeit und Transparenz.' },
-            'portrait-figur': { title: 'Portrait & Figur', level: 'Grundkenntnisse', time: 'Sa 09:30-12:30 · 10 Termine', price: 'EUR 380', desc: 'Die Darstellung des Menschen.' },
-            'komposition': { title: 'Komposition & Farbenlehre', level: 'Alle Level', time: 'Sa 16:30-19:00 · 8 Termine', price: 'EUR 320', desc: 'Die Grundlagen der Bildgestaltung.' },
-            'keramik-toepfern': { title: 'Keramik & Töpfern', level: 'Alle Level', time: 'Mi 16:00-18:30 · 10 Termine', price: 'EUR 420', desc: 'Keramik von Grund auf lernen.' },
-            'graffiti-jugend': { title: 'Graffiti für Kids & Teens', level: '10-17 Jahre', time: 'Sa 13:00-16:00 · 8 Termine', price: 'EUR 240', desc: 'Graffiti als Kunstform.' },
-            'kindergeburtstag': { title: 'Kindergeburtstag im Atelier', level: '6-14 Jahre', time: 'Sa/So · 3 Stunden', price: 'ab EUR 250', desc: 'Kreative Kindergeburtstage.' },
-            'ferienkurs-kunst': { title: 'Kunstabenteuer (6-9 Jahre)', level: '6-9 Jahre', time: 'Mo-Fr 09:30-13:30', price: 'EUR 195', desc: 'Kreative Ferienwoche.' },
-            'ferienkurs-keramik': { title: 'Keramik für Kids (8-14 Jahre)', level: '8-14 Jahre', time: 'Mo-Fr 09:30-13:30', price: 'EUR 200', desc: 'Keramik für Kinder.' },
-            'bildhauerei-bronze': { title: 'Bildhauerei & Bronzeguss', level: 'Gießerei', time: 'Sa 10:00-14:00 · 12 Termine (6 Monate)', price: 'EUR 1.450', desc: 'Erschaffe deine eigene Bronzeskulptur.' },
-            'mappenvorbereitung': { title: 'Mappenvorbereitung Intensiv', level: 'Studienbewerber', time: 'Di & Do 16:00-18:30', price: 'EUR 590/3 Monate', desc: '87% Erfolgsquote bei Hochschulzulassungen.' },
-            'manga-kurs': { title: 'Manga Zeichnen', level: '', time: '', price: 'EUR 260', desc: 'Ein Kurs für alle Manga-Fans. Wir erstellen eigene Charaktere und lernen die typischen Stile.' },
-            'intensivprogramm': { title: 'Intensivprogramm 3 Monate', level: 'Alle Level', time: 'Flexibel, 12h/Woche', price: 'EUR 1.490', desc: 'Das Intensivprogramm für alle, die sich die Fähigkeiten des Zeichnens und Malens in kompakter Form aneignen möchten.\n\nProgramm:\n- Teilnahme an allen wöchentlichen Kursen\n- Freie Kombination aller Nachmittagskurse\n- 12 Stunden pro Woche\n- Individuelle Betreuung\n\nFür wen?\n- Berufswechsler\n- Studienvorbereitung\n- Kreative Auszeit' },
-            'workshop-anatomie': { title: 'Anatomie & Portrait Masterclass', level: 'Workshop', time: '01.-02. Februar 2026 · Sa-So 10:00-17:00', price: 'EUR 195', desc: 'Intensives Wochenende mit lebendigem Modell.\n\nInhalte:\n- Schädelkonstruktion und Proportionen\n- Gesichtsanatomie im Detail\n- Ausdruck und Charakter\n- Schnelle Porträtskizzen\n- Längere Porträtstudien\n\nMaterial mitbringen: Bleistift, Kohle, Rötelstifte, Skizzenblock.' },
+            'aquarell-vormittag': { title: 'Aquarell am Vormittag', level: 'Alle Level', time: 'Mo 10:00-12:00 · 12 Termine', price: 'EUR 280', desc: 'Entspanntes Aquarellmalen am Vormittag - für alle, die in ruhiger Atmosphäre kreativ sein möchten.\n\nKursinhalte:\n- Grundlagen der Aquarelltechnik\n- Nass-in-Nass und Lasurtechniken\n- Landschaften, Blumen und Stillleben\n- Farbmischung und Farbharmonie\n\nBesonderheiten:\n- Kleine Gruppe, entspanntes Tempo\n- Inkl. Tee/Kaffee-Pause' },
+            'zeichnen-malen-vormittag': { title: 'Zeichnen & Malen am Vormittag', level: 'Alle Level', time: 'Di 10:00-12:30 · 12 Termine', price: 'EUR 320', desc: 'Ein Kurs für alle, die das Zeichnen und Malen (wieder) entdecken möchten.\n\nKursinhalte:\n- Grundlagen des Zeichnens\n- Einführung in die Acrylmalerei\n- Stillleben und einfache Motive\n- Licht und Schatten' },
+            'keramik-vormittag': { title: 'Keramik am Vormittag', level: 'Alle Level', time: 'Mi 10:00-12:00 · 10 Termine', price: 'EUR 360', desc: 'Keramik am Vormittag - Ton und Glasuren inklusive.\n\nKursinhalte:\n- Grundtechniken der Tonarbeit\n- Aufbautechniken: Platten und Wülste\n- Oberflächengestaltung\n- Glasuren' },
+            'portrait-vormittag': { title: 'Porträtzeichnen am Vormittag', level: 'Alle Level', time: 'Do 10:00-12:00 · 10 Termine', price: 'EUR 280', desc: 'Porträtzeichnen am Vormittag.\n\nKursinhalte:\n- Proportionen des Kopfes\n- Augen, Nase, Mund zeichnen\n- Gegenseitiges Porträtieren\n- Arbeiten nach Fotos' },
+            'offenes-atelier': { title: 'Offenes Atelier', level: 'Drop-in', time: 'Fr 10:00-12:00 · Fortlaufend', price: 'EUR 15/Tag', desc: 'Das Offene Atelier - komm vorbei und arbeite an deinen eigenen Projekten.\n\nKonzept:\n- Freies Arbeiten an eigenen Projekten\n- Individuelle Beratung\n- Keine feste Anmeldung nötig\n\nEinfach vorbeikommen und 15 EUR vor Ort zahlen.' },
+            'zeichnen-basiskurs': { title: 'Zeichnen Basiskurs', level: 'Anfänger', time: 'Mo 18:30-20:30 · 12 Termine', price: 'EUR 310', desc: 'Der Zeichnen Basiskurs vermittelt fundamentale Techniken des klassischen akademischen Zeichnens.\n\nKursinhalte:\n- Formerfassung und Konturzeichnung\n- Licht-Schatten-Studien und Volumen\n- Proportionslehre und Maßnehmen\n- Perspektivisches Zeichnen\n- Schraffurtechniken\n\nMaterial:\nA3-Skizzenblock, weiche Bleistifte (2B-6B), Radiergummi.' },
+            'malerei-basiskurs': { title: 'Malerei Basiskurs', level: 'Anfänger', time: 'Di 19:30-21:30 · 12 Termine', price: 'EUR 310', desc: 'Im Malerei Basiskurs tauchst du ein in die Welt der Farbe.\n\nKursinhalte:\n- Materialkunde: Farben, Pinsel, Malgründe\n- Farbenlehre und Farbmischung\n- Komposition und Bildaufbau\n- Verschiedene Maltechniken' },
+            'freie-malerei': { title: 'Freie Malerei & Grafik', level: 'Mit Vorkenntnissen', time: 'Mi 19:00-21:00 · 12 Termine', price: 'EUR 340', desc: 'Entwicklung deiner eigenen künstlerischen Arbeiten.\n\nKursinhalte:\n- Entwicklung eigener Bildideen\n- Vertiefung von Komposition und Farbenlehre\n- Experimentieren mit verschiedenen Techniken\n- Regelmäßige Arbeitsbesprechungen' },
+            'aktzeichnen': { title: 'Aktzeichnen', level: 'Alle Level', time: 'Do 19:00-21:15 · 12er-Karte oder Tagesticket', price: 'EUR 280 (12er) / 20 (Tag)', desc: 'Aktzeichnen nach lebendigem Modell.\n\nPreisoptionen:\n- 12er-Karte: 280 EUR\n- Tagesticket: 20 EUR (spontan)\n\nKursinhalte:\n- Plastische Anatomie\n- Proportionen des menschlichen Körpers\n- Schnelles Erfassen von Haltung und Bewegung\n- Verschiedene Zeiteinheiten: 2 Min bis 30 Min' },
+            'aquarell-frei': { title: 'Freie Aquarellmalerei', level: 'Alle Level', time: 'Fr 17:00-19:00 · 12 Termine', price: 'EUR 340', desc: 'Aquarell - Technik der Leichtigkeit und Transparenz.\n\nKursinhalte:\n- Nass-in-Nass und Nass-auf-Trocken Techniken\n- Lasuren und Farbverläufe\n- Licht und Transparenz\n- Landschaft, Stillleben, florale Motive' },
+            'keramik-toepfern': { title: 'Keramik & Töpfern', level: 'Alle Level', time: 'Mi 16:00-18:30 · 10 Termine', price: 'EUR 420', desc: 'Keramik von Grund auf lernen.\n\nKursinhalte:\n- Aufbautechniken: Plattentechnik, Wulsttechnik\n- Einführung in die Drehscheibe\n- Oberflächengestaltung\n- Glasuren\n\nIm Preis enthalten:\n- Ton und Glasuren\n- Brennkosten' },
+            'portrait-figur': { title: 'Portrait & Figur', level: 'Grundkenntnisse', time: 'Sa 09:30-12:30 · 10 Termine', price: 'EUR 380', desc: 'Die Darstellung des Menschen.\n\nKursinhalte:\n- Proportionen des Kopfes\n- Anatomie des Gesichts\n- Hände und Füße zeichnen\n- Körperhaltung und Bewegung' },
+            'komposition': { title: 'Komposition & Farbenlehre', level: 'Alle Level', time: 'Sa 16:30-19:00 · 8 Termine', price: 'EUR 320', desc: 'Die Grundlagen der Bildgestaltung.\n\nKursinhalte:\n- Kompositionsprinzipien: Goldener Schnitt, Drittelregel\n- Bildspannung und Blickführung\n- Farbtheorie: Farbkreis, Komplementärfarben\n- Farbharmonien und Farbkontraste' },
+            'graffiti-jugend': { title: 'Graffiti für Kids & Teens', level: '10-17 Jahre', time: 'Sa 13:00-16:00 · 8 Termine', price: 'EUR 240', desc: 'Graffiti als Kunstform.\n\nKursinhalte:\n- Geschichte und Kultur des Graffiti\n- Buchstabenformen und Typografie\n- Vom Tag zum Piece\n- Character Design\n- Arbeit mit Markern und Spraydosen\n\nMaterial wird gestellt.' },
+            'kindergeburtstag': { title: 'Kindergeburtstag im Atelier', level: '6-14 Jahre', time: 'Sa/So · 3 Stunden', price: 'ab EUR 250', desc: 'Kreativer Kindergeburtstag!\n\nThemen zur Auswahl:\n\n• Leinwand-Party (ab 6 Jahre)\n• Graffiti-Party (ab 10 Jahre)\n• Ton & Keramik (ab 8 Jahre)\n\nEUR 250 für bis zu 8 Kinder\nJedes weitere Kind: EUR 20\n\nIm Preis enthalten:\n- Nutzung des Ateliers\n- Alle Materialien\n- Betreuung\n- Kunstwerke zum Mitnehmen' },
+            'ferienkurs-kunst': { title: 'Kunstabenteuer (6-9 Jahre)', level: '6-9 Jahre', time: 'Mo-Fr 09:30-13:30 · 1 Woche', price: 'EUR 195', desc: 'Kreative Ferienwoche für Kinder.\n\nProgramm:\n- Malen mit Acryl und Aquarell\n- Collagen und Mixed Media\n- Drucken und Stempeln\n- Modellieren mit Ton\n\nAlle Materialien inklusive!' },
+            'ferienkurs-keramik': { title: 'Keramik für Kids (8-14 Jahre)', level: '8-14 Jahre', time: 'Mo-Fr 09:30-13:30 · 1 Woche', price: 'EUR 200', desc: 'Eine Woche Keramik für Kinder.\n\nProgramm:\n- Grundtechniken: Formen, Drücken, Rollen\n- Figuren und Tiere modellieren\n- Gefäße und Schalen\n- Glasieren\n\nTon, Glasuren und Brennkosten inklusive!\n\nAbholung der gebrannten Werke: ca. 2 Wochen später.' },
+            'kunstcamp': { title: 'Kunstcamp Sommer', level: '6-14 Jahre', time: 'Mo-Fr 09:00-14:00 · 1 Woche', price: 'EUR 220', desc: 'Das große Kunstcamp in den Sommerferien.\n\nProgramm:\n- Montag: Malen auf Großformat\n- Dienstag: Skulpturen und Objekte\n- Mittwoch: Drucktechniken\n- Donnerstag: Outdoor-Kunst\n- Freitag: Freies Projekt + Ausstellung\n\nAlle Materialien inklusive!' },
+            'mappenvorbereitung': { title: 'Mappenvorbereitung Intensiv', level: 'Studienbewerber', time: 'Di & Do 16:00-18:30 · 3-6 Monate', price: 'EUR 590/3 Monate', desc: 'Systematische Vorbereitung auf Kunsthochschulen.\n\nProgramm:\n- Analyse deiner bisherigen Arbeiten\n- Individuelle Stärken fördern\n- Technisches Training\n- Konzeptentwicklung\n- Systematischer Mappenaufbau\n- Prüfungsvorbereitung\n\nZiel-Hochschulen:\nUdK Berlin, Weißensee, HTW Berlin, Burg Giebichenstein, HFBK Hamburg u.v.m.\n\n87% Erfolgsquote 2025!' },
+            'bildhauerei-bronze': { title: 'Bildhauerei & Bronzeguss', level: 'Anfänger & Fortgeschrittene', time: 'Sa 10:00-14:00 · 12 Termine (6 Monate)', price: 'EUR 1.450', desc: 'Erschaffe deine eigene Bronzeskulptur!\n\nDer Weg zur Bronze:\n\nPhase 1: Konzept & Modell\n- Ideenentwicklung und Skizzen\n- Modellieren mit Ton\n\nPhase 2: Formenbau\n- Abformtechniken\n- Wachsausschmelzverfahren\n\nPhase 3: Guss & Nachbearbeitung\n- Bronzeguss erleben\n- Entformen und Nachbearbeitung\n\nIm Preis enthalten:\n- Alle Materialien\n- Bronzeguss bis 20 cm Höhe\n- Professionelle Ziselierung und Patinierung' },
+            'intensivprogramm': { title: 'Intensivprogramm 3 Monate', level: 'Alle Level', time: 'Flexibel, 12h/Woche · 3 Monate', price: 'EUR 1.490', desc: 'Das Intensivprogramm für alle, die sich die Fähigkeiten des Zeichnens und Malens in kompakter Form aneignen möchten.\n\nProgramm:\n- Teilnahme an allen wöchentlichen Kursen\n- Freie Kombination aller Nachmittagskurse\n- 12 Stunden pro Woche\n- Individuelle Betreuung\n\nFür wen?\n- Berufswechsler\n- Studienvorbereitung\n- Kreative Auszeit' },
+            'workshop-anatomie': { title: 'Anatomie & Portrait Masterclass', level: 'Workshop', time: '01.-02. Februar 2026 · Sa-So 10:00-17:00', price: 'EUR 195', desc: 'Intensives Wochenende mit lebendigem Modell.\n\nInhalte:\n- Schädelkonstruktion und Proportionen\n- Gesichtsanatomie im Detail\n- Ausdruck und Charakter\n- Schnelle Porträtskizzen\n- Längere Porträtstudien\n\nMaterial mitbringen: Bleistifte, Kohle, Rötelstifte, Skizzenblock.' },
             'workshop-aquarell': { title: 'Aquarell Wochenende', level: 'Workshop', time: '15.-16. Februar 2026 · Sa-So 10:00-17:00', price: 'EUR 180', desc: 'Ein Wochenende ganz im Zeichen des Aquarells.\n\nInhalte:\n- Nass-in-Nass für atmosphärische Hintergründe\n- Lasurtechniken für Tiefe\n- Himmel und Wolken malen\n- Bäume und Vegetation\n- Wasser und Spiegelungen\n\nMaterial mitbringen: Aquarellpapier, Farben, Pinsel.' },
             'workshop-keramik': { title: 'Keramik Schnupperkurs', level: 'Workshop', time: '08.-09. März 2026 · Sa-So 10:00-17:00', price: 'EUR 210', desc: 'Kompakter Einstieg ins Töpfern.\n\nInhalte:\n- Grundtechniken der Tonarbeit\n- Aufbautechniken: Platten und Wülste\n- Schnuppern an der Drehscheibe\n- Oberflächengestaltung\n- Glasurauswahl\n\nTon und Glasuren inklusive.\nAbholung der gebrannten Werke: ca. 2 Wochen später.' },
-            'workshop-grossformat': { title: 'Großformat Zeichnen', level: 'Workshop', time: '22.-23. März 2026 · Sa-So 10:00-17:00', price: 'EUR 180', desc: 'Ein Wochenende auf Formaten bis zu 2 Metern.\n\nInhalte:\n- Arbeiten im Stehen und mit dem ganzen Körper\n- Kohle und Kreide auf großen Flächen\n- Schnelle, gestische Zeichnungen\n- Langsame, meditative Studien\n\nPapier und Kohle werden gestellt. Bitte Kleidung tragen, die staubig werden darf.' }
+            'workshop-grossformat': { title: 'Großformat Zeichnen', level: 'Workshop', time: '22.-23. März 2026 · Sa-So 10:00-17:00', price: 'EUR 180', desc: 'Ein Wochenende auf Formaten bis zu 2 Metern.\n\nInhalte:\n- Arbeiten im Stehen und mit dem ganzen Körper\n- Kohle und Kreide auf großen Flächen\n- Schnelle, gestische Zeichnungen\n- Langsame, meditative Studien\n\nPapier und Kohle werden gestellt.' }
         };
 
-        // PARALLAX SCRIPT
+        let currentCourse = null;
+
+        // PARALLAX
         document.addEventListener('mousemove', (e) => {
             const triangles = document.querySelectorAll('.triangle');
             const mouseX = e.clientX / window.innerWidth - 0.5;
             const mouseY = e.clientY / window.innerHeight - 0.5;
-
             triangles.forEach(triangle => {
                 const direction = triangle.getAttribute('data-direction');
                 const intensity = 20;
-
-                let x = 0;
-                let y = 0;
-
-                if (direction === 'top') {
-                    x = mouseX * intensity;
-                    y = mouseY * intensity;
-                } else if (direction === 'bottom') {
-                    x = -mouseX * intensity;
-                    y = -mouseY * intensity;
-                } else if (direction === 'left') {
-                    x = -mouseX * intensity;
-                    y = mouseY * intensity;
-                } else if (direction === 'right') {
-                    x = mouseX * intensity;
-                    y = -mouseY * intensity;
-                }
-                
+                let x = 0, y = 0;
+                if (direction === 'top') { x = mouseX * intensity; y = mouseY * intensity; }
+                else if (direction === 'bottom') { x = -mouseX * intensity; y = -mouseY * intensity; }
+                else if (direction === 'left') { x = -mouseX * intensity; y = mouseY * intensity; }
+                else if (direction === 'right') { x = mouseX * intensity; y = -mouseY * intensity; }
                 triangle.style.transform = `translate(${x}px, ${y}px)`;
             });
         });
 
-        // FUNCTIONS
         function openSection(sectionId) {
             document.querySelectorAll('.content-overlay').forEach(el => el.classList.remove('active'));
             const target = document.getElementById('section-' + sectionId);
             if (target) target.classList.add('active');
-
             updateTriangles(true);
             document.getElementById('navbar').style.background = 'rgba(232, 180, 188, 0.95)';
             document.getElementById('navbar').style.mixBlendMode = 'normal';
@@ -430,22 +389,12 @@
                 { id: 'kalender', smallClass: 'clip-kalendersmall', bigClass: 'clip-kalender' },
                 { id: 'faq', smallClass: 'clip-faqsmall', bigClass: 'clip-faq' }
             ];
-
             mappings.forEach(item => {
                 const el = document.getElementById('tri-' + item.id);
                 const label = document.getElementById('label-' + item.id);
-                
-                if (isOpen) {
-                    el.classList.remove(item.bigClass);
-                    el.classList.add(item.smallClass);
-                    if (label) label.classList.add('hidden');
-                } else {
-                    el.classList.remove(item.smallClass);
-                    el.classList.add(item.bigClass);
-                    if (label) label.classList.remove('hidden');
-                }
+                if (isOpen) { el.classList.remove(item.bigClass); el.classList.add(item.smallClass); if (label) label.classList.add('hidden'); }
+                else { el.classList.remove(item.smallClass); el.classList.add(item.bigClass); if (label) label.classList.remove('hidden'); }
             });
-
             const centerContent = document.getElementById('center-content');
             if (isOpen) centerContent.classList.add('hidden');
             else centerContent.classList.remove('hidden');
@@ -454,25 +403,17 @@
         function openModal(courseId) {
             const data = courses[courseId];
             if (!data) return;
-
+            currentCourse = data.title;
             document.getElementById('modal-level').innerText = data.level || '';
             document.getElementById('modal-title').innerText = data.title;
             document.getElementById('modal-time').innerText = data.time || '';
             document.getElementById('modal-desc').innerText = data.desc;
             document.getElementById('modal-price').innerText = data.price;
-            
             document.getElementById('modal').classList.add('open');
         }
 
-        function closeModal(e) {
-            if (e.target.id === 'modal') {
-                document.getElementById('modal').classList.remove('open');
-            }
-        }
-        
-        function closeModalForce() {
-            document.getElementById('modal').classList.remove('open');
-        }
+        function closeModal(e) { if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open'); }
+        function closeModalForce() { document.getElementById('modal').classList.remove('open'); }
 
         function handleAnmeldung() {
             const subject = encodeURIComponent('Anmeldung: ' + currentCourse);
