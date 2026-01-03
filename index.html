@@ -99,6 +99,21 @@
         .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
         .contact-info h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: #888; }
         .contact-info p { line-height: 1.8; }
+        
+        /* BILDER - Links, Rechts, Zentriert */
+        .section-img {
+            display: block;
+            margin: 2.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        .img-left { margin-left: 0; margin-right: auto; }
+        .img-right { margin-left: auto; margin-right: 0; }
+        .img-center { margin-left: auto; margin-right: auto; }
+        @media (max-width: 768px) {
+            .section-img { max-width: 90% !important; height: auto !important; margin-left: auto !important; margin-right: auto !important; }
+        }
     </style>
 </head>
 <body>
@@ -160,8 +175,8 @@
             <h2 class="section-title">Kursangebot</h2>
             <p class="section-intro">Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung - in unseren Kursen arbeiten wir in kleinen Gruppen mit individueller Betreuung.</p>
             
-            <!-- BILD: Aquarell - Groß -->
-            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell.jpeg" alt="Aquarellmalerei" style="width: 100%; max-width: 500px; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin: 2rem 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+            <!-- BILD: Aquarell - LINKS, GROSS -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell.jpeg" alt="Aquarellmalerei" class="section-img img-left" style="width: 420px; height: 420px;">
             
             <div class="category-header"><h3>Vormittagskurse</h3><span class="category-badge" style="color:#5BA88C">Entspannt am Vormittag</span></div>
             <div class="course-grid">
@@ -172,8 +187,8 @@
                 <div class="course-card" onclick="openModal('offenes-atelier')"><div><h4>Offenes Atelier</h4><p>Freies Arbeiten an eigenen Projekten mit Anleitung.</p><span class="level-badge">Drop-in</span><div class="time-info">Fr 10:00-12:00 · Fortlaufend</div></div><div class="card-footer"><span class="price">EUR 15/Tag</span><button class="btn">Anmelden</button></div></div>
             </div>
             
-            <!-- BILD: Ölmalerei - Mittel -->
-            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/oelmalerei.jpeg" alt="Ölmalerei Kurs" style="width: 100%; max-width: 380px; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin: 3rem 0 2rem 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+            <!-- BILD: Ölmalerei - RECHTS, MITTEL -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/oelmalerei.jpeg" alt="Ölmalerei Kurs" class="section-img img-right" style="width: 340px; height: 340px;">
             
             <div class="category-header"><h3>Abendkurse</h3><span class="category-badge" style="color:#E8B4BC">Nach Feierabend</span></div>
             <div class="course-grid">
@@ -186,6 +201,10 @@
                 <div class="course-card" onclick="openModal('portrait-figur')"><div><h4>Portrait & Figur</h4><p>Menschendarstellung vertiefen: Gesicht, Hände, Körper.</p><span class="level-badge">Grundkenntnisse</span><div class="time-info">Sa 09:30-12:30 · 10 Termine</div></div><div class="card-footer"><span class="price">EUR 380</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('komposition')"><div><h4>Komposition & Farbenlehre</h4><p>Goldener Schnitt, Farbharmonien, Bildaufbau.</p><span class="level-badge">Alle Level</span><div class="time-info">Sa 16:30-19:00 · 8 Termine</div></div><div class="card-footer"><span class="price">EUR 320</span><button class="btn">Anmelden</button></div></div>
             </div>
+            
+            <!-- BILD: Aquarell Kind - MITTIG, KLEIN -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell_kind.jpeg" alt="Kinder malen" class="section-img img-center" style="width: 260px; height: 260px;">
+            
             <div class="category-header"><h3>Kinder & Jugendliche</h3><span class="category-badge" style="color:#E8B4BC">Kreativität fördern</span></div>
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('graffiti-jugend')"><div><h4>Graffiti für Kids & Teens</h4><p>Von der Skizze zur Wand: Buchstaben, Characters, Styles.</p><span class="level-badge">10-17 Jahre</span><div class="time-info">Sa 13:00-16:00 · 8 Termine</div></div><div class="card-footer"><span class="price">EUR 240</span><button class="btn">Anmelden</button></div></div>
@@ -198,8 +217,8 @@
                 <div class="course-card" onclick="openModal('kunstcamp')"><div><h4>Kunstcamp Sommer</h4><p>Die große Sommerferienkreativwoche.</p><span class="level-badge">6-14 Jahre</span><div class="time-info">Mo-Fr 09:00-14:00</div></div><div class="card-footer"><span class="price">EUR 220</span><button class="btn">Anmelden</button></div></div>
             </div>
             
-            <!-- BILD: Ton Hand - Klein -->
-            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/ton_hand.jpeg" alt="Bildhauerei und Ton" style="width: 100%; max-width: 320px; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin: 3rem 0 2rem 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+            <!-- BILD: Ton Hand - LINKS, GROSS -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/ton_hand.jpeg" alt="Bildhauerei und Ton" class="section-img img-left" style="width: 380px; height: 380px;">
             
             <div class="category-header"><h3>Intensivprogramme</h3><span class="category-badge" style="color:#5BA88C">Mappe & Bronzeguss</span></div>
             <div class="course-grid">
@@ -207,6 +226,10 @@
                 <div class="course-card" onclick="openModal('bildhauerei-bronze')"><div><h4>Bildhauerei & Bronzeguss</h4><p>Vom Tonmodell zur Bronzeskulptur. Auch für Anfänger!</p><span class="level-badge">Gießerei</span><div class="time-info">Sa 10:00-14:00 · 6 Monate</div></div><div class="card-footer"><span class="price">EUR 1.450</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('intensivprogramm')"><div><h4>Intensivprogramm 3 Monate</h4><p>12 Stunden pro Woche: Tauche vollständig ein.</p><span class="level-badge">Alle Level</span><div class="time-info">Flexibel, 12h/Woche</div></div><div class="card-footer"><span class="price">EUR 1.490</span><button class="btn">Anmelden</button></div></div>
             </div>
+            
+            <!-- BILD: Zeichnung - RECHTS, MITTEL -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/zeichnung_1.jpeg" alt="Zeichnung Workshop" class="section-img img-right" style="width: 300px; height: 300px;">
+            
             <div class="category-header"><h3>Wochenend-Workshops</h3></div>
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('workshop-anatomie')"><div><h4>Anatomie & Portrait</h4><p>Zwei Tage intensive Arbeit an Kopf und Figur.</p><span class="level-badge">01.-02. Feb</span><div class="time-info">Sa-So 10:00-17:00</div></div><div class="card-footer"><span class="price">EUR 195</span><button class="btn">Anmelden</button></div></div>
@@ -250,7 +273,11 @@
         <div class="container">
             <h2 class="section-title">Termine</h2>
             <p class="section-intro">Alle Kursstarts, Workshops und Events auf einen Blick.</p>
-            <h3 style="font-size: 1.4rem; font-weight: 400; margin: 3rem 0 1.5rem 0; color: #888;">Januar 2026</h3>
+            
+            <!-- BILD: Landschaft - LINKS, GROSS -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/landschaft_oel_1.jpeg" alt="Ölmalerei Landschaft" class="section-img img-left" style="width: 400px; height: 400px;">
+            
+            <h3 style="font-size: 1.4rem; font-weight: 400; margin: 2rem 0 1.5rem 0; color: #888;">Januar 2026</h3>
             <div class="termin-item" onclick="openModal('aquarell-vormittag')"><div class="termin-date">13. Jan</div><div class="termin-bar" style="background: #5BA88C;"></div><div class="termin-info"><h4>Kursstart: Aquarell am Vormittag</h4><span>Mo 10:00-12:00</span></div><span class="termin-type">Kurs</span></div>
             <div class="termin-item" onclick="openModal('zeichnen-basiskurs')"><div class="termin-date">13. Jan</div><div class="termin-bar" style="background: #E8B4BC;"></div><div class="termin-info"><h4>Kursstart: Zeichnen Basiskurs</h4><span>Mo 18:30-20:30</span></div><span class="termin-type">Kurs</span></div>
             <div class="termin-item" onclick="openModal('zeichnen-malen-vormittag')"><div class="termin-date">14. Jan</div><div class="termin-bar" style="background: #5BA88C;"></div><div class="termin-info"><h4>Kursstart: Zeichnen & Malen am Vormittag</h4><span>Di 10:00-12:30</span></div><span class="termin-type">Kurs</span></div>
@@ -259,13 +286,21 @@
             <div class="termin-item" onclick="openModal('aktzeichnen')"><div class="termin-date">16. Jan</div><div class="termin-bar" style="background: #D4D0C8;"></div><div class="termin-info"><h4>Aktzeichnen</h4><span>Do 19:00-21:15</span></div><span class="termin-type">Drop-in</span></div>
             <div class="termin-item" onclick="openModal('graffiti-jugend')"><div class="termin-date">18. Jan</div><div class="termin-bar" style="background: #E8B4BC;"></div><div class="termin-info"><h4>Kursstart: Graffiti für Kids & Teens</h4><span>Sa 13:00-16:00</span></div><span class="termin-type">Jugend</span></div>
             <div class="termin-item"><div class="termin-date">25. Jan</div><div class="termin-bar" style="background: #5BA88C;"></div><div class="termin-info"><h4>Tag der offenen Tür</h4><span>11:00-17:00 Uhr</span></div><span class="termin-type">Event</span></div>
-            <h3 style="font-size: 1.4rem; font-weight: 400; margin: 3rem 0 1.5rem 0; color: #888;">Februar 2026</h3>
+            
+            <!-- BILD: Aquarell 1 - RECHTS, MITTEL -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell_1.jpeg" alt="Aquarell Workshop" class="section-img img-right" style="width: 320px; height: 320px;">
+            
+            <h3 style="font-size: 1.4rem; font-weight: 400; margin: 2rem 0 1.5rem 0; color: #888;">Februar 2026</h3>
             <div class="termin-item" onclick="openModal('workshop-anatomie')"><div class="termin-date">01.-02. Feb</div><div class="termin-bar" style="background: #DBBEA1;"></div><div class="termin-info"><h4>Workshop: Anatomie & Portrait Masterclass</h4><span>Sa-So 10:00-17:00</span></div><span class="termin-type">Workshop</span></div>
             <div class="termin-item" onclick="openModal('bildhauerei-bronze')"><div class="termin-date">01. Feb</div><div class="termin-bar" style="background: #5BA88C;"></div><div class="termin-info"><h4>Kursstart: Bildhauerei & Bronzeguss</h4><span>Sa 10:00-14:00</span></div><span class="termin-type">Intensiv</span></div>
             <div class="termin-item" onclick="openModal('mappenvorbereitung')"><div class="termin-date">03. Feb</div><div class="termin-bar" style="background: #5BA88C;"></div><div class="termin-info"><h4>Kursstart: Mappenvorbereitung</h4><span>Di & Do 16:00-18:30</span></div><span class="termin-type">Intensiv</span></div>
             <div class="termin-item"><div class="termin-date">07. Feb</div><div class="termin-bar" style="background: #5BA88C;"></div><div class="termin-info"><h4>Vernissage: Schülerausstellung</h4><span>19:00-22:00 Uhr</span></div><span class="termin-type">Event</span></div>
             <div class="termin-item" onclick="openModal('workshop-aquarell')"><div class="termin-date">15.-16. Feb</div><div class="termin-bar" style="background: #DBBEA1;"></div><div class="termin-info"><h4>Workshop: Aquarell Wochenende</h4><span>Sa-So 10:00-17:00</span></div><span class="termin-type">Workshop</span></div>
-            <h3 style="font-size: 1.4rem; font-weight: 400; margin: 3rem 0 1.5rem 0; color: #888;">März 2026</h3>
+            
+            <!-- BILD: Zeichnung 3 - MITTIG, KLEIN -->
+            <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/zeichnung_3.jpeg" alt="Zeichnung Kurs" class="section-img img-center" style="width: 240px; height: 240px;">
+            
+            <h3 style="font-size: 1.4rem; font-weight: 400; margin: 2rem 0 1.5rem 0; color: #888;">März 2026</h3>
             <div class="termin-item" onclick="openModal('workshop-keramik')"><div class="termin-date">08.-09. Mär</div><div class="termin-bar" style="background: #DBBEA1;"></div><div class="termin-info"><h4>Workshop: Keramik Schnupperkurs</h4><span>Sa-So 10:00-17:00</span></div><span class="termin-type">Workshop</span></div>
             <div class="termin-item" onclick="openModal('workshop-grossformat')"><div class="termin-date">22.-23. Mär</div><div class="termin-bar" style="background: #DBBEA1;"></div><div class="termin-info"><h4>Workshop: Großformat Zeichnen</h4><span>Sa-So 10:00-17:00</span></div><span class="termin-type">Workshop</span></div>
             <div class="termin-item" onclick="openModal('ferienkurs-kunst')"><div class="termin-date">30. Mär</div><div class="termin-bar" style="background: #E8B4BC;"></div><div class="termin-info"><h4>Start: Kunstabenteuer Osterferien</h4><span>Mo-Fr 09:30-13:30</span></div><span class="termin-type">Ferien</span></div>
