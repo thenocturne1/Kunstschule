@@ -33,13 +33,11 @@
         /* LABELS: Dünner (Font-weight 400) */
         .label-container { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: white; transition: all 0.5s; opacity: 1; pointer-events: none; }
         .label-container span { letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.9rem; font-weight: 400; }
+        
         .pos-kurse { top: 18%; left: 50%; transform: translateX(-50%); }
         .pos-info { top: 50%; right: 12%; transform: translateY(-50%); }
         .pos-kalender { top: 50%; left: 12%; transform: translateY(-50%); }
         .pos-faq { bottom: 18%; left: 50%; transform: translateX(-50%); }
-        
-        /* CENTER TITLE: GROSSBUCHSTABEN */
-        .center-title { font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: 0.15em; line-height: 1.1; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.1); text-transform: uppercase; }
         
         .floating-shape { position: absolute; pointer-events: none; z-index: 30; }
         .shape-circle { border-radius: 50%; border-style: solid; border-color: white; animation-name: float; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
@@ -48,22 +46,26 @@
         @keyframes float { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 33% { transform: translate(25px, -40px) rotate(3deg); } 66% { transform: translate(-25px, 35px) rotate(-3deg); } }
         @keyframes floatSlow { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(15px, -25px) rotate(2deg); } }
         @keyframes floatFast { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(35px, -20px) rotate(5deg); } 75% { transform: translate(-30px, 25px) rotate(-4deg); } }
+        
+        /* CENTER TITLE: GROSSBUCHSTABEN, mehr Spacing */
         .center-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -65%); text-align: center; z-index: 50; color: white; pointer-events: none; display: flex; flex-direction: column; align-items: center; opacity: 1; transition: opacity 0.6s ease; width: 100%; animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .hidden { opacity: 0 !important; pointer-events: none !important; }
         @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, -65%) translateY(40px); } to { opacity: 1; transform: translate(-50%, -65%) translateY(0); } }
         .kas-abbr { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(4rem, 10vw, 9rem); font-weight: 900; letter-spacing: -0.02em; color: white; line-height: 0.8; margin-bottom: 1rem; text-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; display: inline-block; }
         .kas-abbr::after { content: ''; display: block; width: 60px; height: 4px; background: white; margin: 0 auto; border-radius: 2px; margin-top: 10px; }
+        .center-title { font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: 0.15em; line-height: 1.1; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.1); text-transform: uppercase; }
         .center-tagline { font-style: italic; font-size: clamp(0.8rem, 1.2vw, 1.1rem); letter-spacing: 0.3em; margin-top: 1.5rem; font-weight: 500; opacity: 0.9; }
         
-        /* Neue Klasse für die Bilder */
+        /* QUADRATISCHES BILD CSS */
         .section-image {
             width: 100%;
-            height: 350px;
+            aspect-ratio: 1 / 1; /* Zwingt Quadrat */
             object-fit: cover;
             margin: 2rem 0;
             border-radius: 8px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
             display: block;
+            background-color: #f5f5f3; /* Hintergrundfarbe während Laden */
         }
         
         .content-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #FAFAF8; z-index: 5; opacity: 0; pointer-events: none; transition: opacity 0.6s ease, transform 0.6s ease; overflow-y: auto; padding: 120px 2rem 50px 2rem; transform: scale(1.05); }
@@ -114,7 +116,7 @@
         .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
         .contact-info h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: #888; }
         .contact-info p { line-height: 1.8; }
-        @media (max-width: 768px) { .navbar { mix-blend-mode: normal; background: rgba(0,0,0,0.2); gap: 1.5rem; } .navbar span { font-size: 0.7rem; letter-spacing: 0.1em; } .kas-abbr { font-size: 4rem; } .center-title { font-size: 1.8rem; } .course-grid { grid-template-columns: 1fr; } .section-image { height: 200px; } }
+        @media (max-width: 768px) { .navbar { mix-blend-mode: normal; background: rgba(0,0,0,0.2); gap: 1.5rem; } .navbar span { font-size: 0.7rem; letter-spacing: 0.1em; } .kas-abbr { font-size: 4rem; } .center-title { font-size: 1.8rem; } .course-grid { grid-template-columns: 1fr; } .section-image { max-width: 400px; margin-left: auto; margin-right: auto; } }
     </style>
 </head>
 <body>
@@ -176,9 +178,9 @@
             <h2 class="section-title">Kursangebot</h2>
             <p class="section-intro">Von akademischen Grundlagen bis zur freien künstlerischen Entfaltung - in unseren Kursen arbeiten wir in kleinen Gruppen mit individueller Betreuung.</p>
             
-            <!-- AQUARELL BILD HIER -->
-            <!-- ERSETZE DEN LINK DURCH DEINEN GITHUB LINK ZUM AQUARELL BILD -->
-            <img src="https://via.placeholder.com/1200x400?text=GITHUB+LINK+HIER+AQUARELL" alt="Aquarell-Malerei" class="section-image">
+            <!-- AQUARELL BILD: HIER EINFÜGEN (GITHUB RAW LINK) -->
+            <!-- Format: https://raw.githubusercontent.com/USER/REPO/MAIN/BILDNAME.ext -->
+            <img src="https://via.placeholder.com/800x800?text=GITHUB+RAW+LINK+HIER+KURS" alt="Aquarell" class="section-image">
 
             <div class="category-header"><h3>Vormittagskurse</h3><span class="category-badge" style="color:#5BA88C">Entspannt am Vormittag</span></div>
             <div class="course-grid">
@@ -189,9 +191,8 @@
                 <div class="course-card" onclick="openModal('offenes-atelier')"><div><h4>Offenes Atelier</h4><p>Freies Arbeiten an eigenen Projekten mit Anleitung.</p><span class="level-badge">Drop-in</span><div class="time-info">Fr 10:00-12:00 · Fortlaufend</div></div><div class="card-footer"><span class="price">EUR 15/Tag</span><button class="btn">Anmelden</button></div></div>
             </div>
             
-            <!-- TON HAND BILD HIER -->
-            <!-- ERSETZE DEN LINK DURCH DEINEN GITHUB LINK ZUM TON/HAND BILD -->
-            <img src="https://via.placeholder.com/1200x400?text=GITHUB+LINK+HIER+TON+HAND" alt="Ton Hand" class="section-image">
+            <!-- TON/HAND BILD: HIER EINFÜGEN (GITHUB RAW LINK) -->
+            <img src="https://via.placeholder.com/800x800?text=GITHUB+RAW+LINK+HIER+TON" alt="Ton Hand" class="section-image">
 
             <div class="category-header"><h3>Abendkurse</h3><span class="category-badge" style="color:#E8B4BC">Nach Feierabend</span></div>
             <div class="course-grid">
@@ -215,7 +216,12 @@
                 <div class="course-card" onclick="openModal('ferienkurs-keramik')"><div><h4>Keramik für Kids (8-14 J.)</h4><p>Töpfern, Formen, Glasieren - deine Kunstwerke aus Ton.</p><span class="level-badge">8-14 Jahre</span><div class="time-info">Mo-Fr 09:30-13:30</div></div><div class="card-footer"><span class="price">EUR 200</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('kunstcamp')"><div><h4>Kunstcamp Sommer</h4><p>Die große Sommerferienkreativwoche.</p><span class="level-badge">6-14 Jahre</span><div class="time-info">Mo-Fr 09:00-14:00</div></div><div class="card-footer"><span class="price">EUR 220</span><button class="btn">Anmelden</button></div></div>
             </div>
+
+            <!-- INTENSIVPROGRAMME: HIER EINFÜGEN (GITHUB RAW LINK) -->
             <div class="category-header"><h3>Intensivprogramme</h3><span class="category-badge" style="color:#5BA88C">Mappe & Bronzeguss</span></div>
+            <!-- Platzhalter für Intensivprogramm Bild -->
+            <img src="https://via.placeholder.com/800x800?text=GITHUB+RAW+LINK+HIER+INTENSIV" alt="Intensivprogramm" class="section-image">
+
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('mappenvorbereitung')"><div><h4>Mappenvorbereitung</h4><p>Systematische Vorbereitung auf Kunsthochschulen.</p><span class="level-badge">Studienbewerber</span><div class="time-info">Di & Do 16:00-18:30</div></div><div class="card-footer"><span class="price">EUR 590/3 Mon.</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('bildhauerei-bronze')"><div><h4>Bildhauerei & Bronzeguss</h4><p>Vom Tonmodell zur Bronzeskulptur. Auch für Anfänger!</p><span class="level-badge">Gießerei</span><div class="time-info">Sa 10:00-14:00 · 6 Monate</div></div><div class="card-footer"><span class="price">EUR 1.450</span><button class="btn">Anmelden</button></div></div>
@@ -234,7 +240,7 @@
     <div id="section-info" class="content-overlay">
         <div class="container">
             <h2 class="section-title">Über uns</h2>
-            <p class="section-intro">Ein Ort zum Lernen, Experimentieren und Wachsen - in Berlin-Kreuzberg.</p>
+            <p class="section-intro">Ein Ort zum Lernen, Experimentieren und Wachsen - in Berlin-Charlottenburg.</p>
             <p style="max-width: 700px; line-height: 1.9; margin-bottom: 1.5rem;">In unseren Kursen wird in kleinen, gemischten Gruppen gearbeitet. Die Dozierenden betreuen jeden Teilnehmer nach individuellem Curriculum - kein Frontalunterricht, sondern persönliche Begleitung.</p>
             <p style="max-width: 700px; line-height: 1.9; margin-bottom: 3rem;"><strong>Besonderheit:</strong> Unsere Kunstschule ist an eine professionelle Kunstgießerei angegliedert. Dadurch können wir den kompletten Prozess des Bronzegusses anbieten.</p>
             <div class="info-box">
@@ -310,9 +316,11 @@
                     <button type="submit">Absenden</button>
                 </form>
             </div>
+            
+            <!-- KONTAKT INFO HIER KORRIGIERT -->
             <div class="contact-info">
-                <div><h4>Adresse</h4><p>AM SPREEBORD 9<br>10589 BERLIN</p></div>
-                <div><h4>Anfahrt</h4><p>U7 Richard Wagner Platz<br>Bus M29 & 140</p></div>
+                <div><h4>Adresse</h4><p>Kunstschule am Spreebord<br>Am Landwehrkanal 12<br>10587 Berlin (Charlottenburg)</p></div>
+                <div><h4>Anfahrt</h4><p>U-Bahn: U7 & U9 (Bolivarplatz)<br>Bus: 123, 240 (Bolivarplatz)</p></div>
                 <div><h4>Erreichbarkeit</h4><p>info@kunstschule-spreebord.de<br>017622996566<br>Mo-Fr 16-19 Uhr</p></div>
             </div>
         </div>
@@ -322,7 +330,7 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeModalForce()">×</button>
             <div id="modal-level" style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;"></div>
-            <h2 id="modal-title" style="font-size: 2rem; font-weight: 400; margin-bottom: 0.5rem;"></h2>
+            <h2 id="modal-title" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
             <div id="modal-time" style="font-size: 0.9rem; color: #666; margin-bottom: 1.5rem;"></div>
             <div id="modal-desc" style="color: #333; line-height: 1.8; white-space: pre-line; margin-bottom: 2rem;"></div>
             <div style="border-top: 1px solid #eee; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
@@ -353,16 +361,15 @@
             'ferienkurs-kunst': { title: 'Kunstabenteuer (6-9 Jahre)', level: '6-9 Jahre', time: 'Mo-Fr 09:30-13:30', price: 'EUR 195', desc: 'Kreative Ferienwoche.' },
             'ferienkurs-keramik': { title: 'Keramik für Kids (8-14 Jahre)', level: '8-14 Jahre', time: 'Mo-Fr 09:30-13:30', price: 'EUR 200', desc: 'Keramik für Kinder.' },
             'bildhauerei-bronze': { title: 'Bildhauerei & Bronzeguss', level: 'Gießerei', time: 'Sa 10:00-14:00 · 12 Termine (6 Monate)', price: 'EUR 1.450', desc: 'Erschaffe deine eigene Bronzeskulptur.' },
-            'mappenvorbereitung': { title: 'Mappenvorbereitung Intensiv', level: 'Studienbewerber', time: 'Di & Do 16:00-18:30', price: 'EUR 590 / 3 Monate', desc: '87% Erfolgsquote bei Hochschulzulassungen.' },
+            'mappenvorbereitung': { title: 'Mappenvorbereitung Intensiv', level: 'Studienbewerber', time: 'Di & Do 16:00-18:30', price: 'EUR 590/3 Monate', desc: '87% Erfolgsquote bei Hochschulzulassungen.' },
             'manga-kurs': { title: 'Manga Zeichnen', level: '', time: '', price: 'EUR 260', desc: 'Ein Kurs für alle Manga-Fans. Wir erstellen eigene Charaktere und lernen die typischen Stile.' },
             'intensivprogramm': { title: 'Intensivprogramm 3 Monate', level: 'Alle Level', time: 'Flexibel, 12h/Woche', price: 'EUR 1.490', desc: 'Das Intensivprogramm für alle, die sich die Fähigkeiten des Zeichnens und Malens in kompakter Form aneignen möchten.\n\nProgramm:\n- Teilnahme an allen wöchentlichen Kursen\n- Freie Kombination aller Nachmittagskurse\n- 12 Stunden pro Woche\n- Individuelle Betreuung\n\nFür wen?\n- Berufswechsler\n- Studienvorbereitung\n- Kreative Auszeit' },
-            'workshop-anatomie': { title: 'Anatomie & Portrait Masterclass', level: 'Workshop', time: '01.-02. Februar 2026 · Sa-So 10:00-17:00', price: 'EUR 195', desc: 'Intensives Wochenende mit lebendigem Modell.\n\nInhalte:\n- Schädelkonstruktion und Proportionen\n- Gesichtsanatomie im Detail\n- Ausdruck und Charakter\n- Schnelle Porträtskizzen\n- Längere Porträtstudien\n\nMaterial mitbringen: Bleistift, Kohle, Rötelstifte, Skizzenblock.' },
+            'workshop-anatomie': { title: 'Anatomie & Portrait Masterclass', level: 'Workshop', time: '01.-02. Februar 2026 · Sa-So 10:00-17:00', price: 'EUR 195', desc: 'Intensives Wochenende mit lebendigem Modell.\n\nInhalte:\n- Schädelkonstruktion und Proportionen\n- Gesichtsanatomie im Detail\n- Ausdruck und Charakter\n- Schnelle Porträtskizzen\n- Längere Porträtstudien\n\nMaterial mitbringen: Bleistifte, Kohle, Rötelstifte, Skizzenblock.' },
             'workshop-aquarell': { title: 'Aquarell Wochenende', level: 'Workshop', time: '15.-16. Februar 2026 · Sa-So 10:00-17:00', price: 'EUR 180', desc: 'Ein Wochenende ganz im Zeichen des Aquarells.\n\nInhalte:\n- Nass-in-Nass für atmosphärische Hintergründe\n- Lasurtechniken für Tiefe\n- Himmel und Wolken malen\n- Bäume und Vegetation\n- Wasser und Spiegelungen\n\nMaterial mitbringen: Aquarellpapier, Farben, Pinsel.' },
             'workshop-keramik': { title: 'Keramik Schnupperkurs', level: 'Workshop', time: '08.-09. März 2026 · Sa-So 10:00-17:00', price: 'EUR 210', desc: 'Kompakter Einstieg ins Töpfern.\n\nInhalte:\n- Grundtechniken der Tonarbeit\n- Aufbautechniken: Platten und Wülste\n- Schnuppern an der Drehscheibe\n- Oberflächengestaltung\n- Glasurauswahl\n\nTon und Glasuren inklusive.\nAbholung der gebrannten Werke: ca. 2 Wochen später.' },
             'workshop-grossformat': { title: 'Großformat Zeichnen', level: 'Workshop', time: '22.-23. März 2026 · Sa-So 10:00-17:00', price: 'EUR 180', desc: 'Ein Wochenende auf Formaten bis zu 2 Metern.\n\nInhalte:\n- Arbeiten im Stehen und mit dem ganzen Körper\n- Kohle und Kreide auf großen Flächen\n- Schnelle, gestische Zeichnungen\n- Langsame, meditative Studien\n\nPapier und Kohle werden gestellt. Bitte Kleidung tragen, die staubig werden darf.' }
         };
-
-        // PARALLAX SCRIPT
+        let currentCourse = null;
         document.addEventListener('mousemove', (e) => {
             const triangles = document.querySelectorAll('.triangle');
             const mouseX = e.clientX / window.innerWidth - 0.5;
@@ -400,7 +407,7 @@
             if (target) target.classList.add('active');
 
             updateTriangles(true);
-            document.getElementById('navbar').style.background = 'rgba(232, 180, 188, 0.95)'; 
+            document.getElementById('navbar').style.background = 'rgba(232, 180, 188, 0.95)';
             document.getElementById('navbar').style.mixBlendMode = 'normal';
         }
 
@@ -443,6 +450,7 @@
             const data = courses[courseId];
             if (!data) return;
 
+            currentCourse = data.title;
             document.getElementById('modal-level').innerText = data.level || '';
             document.getElementById('modal-title').innerText = data.title;
             document.getElementById('modal-time').innerText = data.time || '';
@@ -463,8 +471,9 @@
         }
 
         function handleAnmeldung() {
-            alert('Anmeldefunktion starten (Demo)...');
-            closeModalForce();
+            const subject = encodeURIComponent('Anmeldung: ' + currentCourse);
+            const body = encodeURIComponent('Ich möchte mich für "' + currentCourse + '" anmelden.\n\nName:\nTelefon:\nE-Mail:');
+            window.open('mailto:info@kunstschule-spreebord.de?subject=' + subject + '&body=' + body, '_blank');
         }
 
         function handleSubmit(e) {
