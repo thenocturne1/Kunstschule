@@ -111,8 +111,27 @@
         .img-left { margin-left: 0; margin-right: auto; }
         .img-right { margin-left: auto; margin-right: 0; }
         .img-center { margin-left: auto; margin-right: auto; }
+        
+        /* BILDREIHEN */
+        .img-row {
+            display: flex;
+            gap: 1rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .img-row img {
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        .img-row-4 img { width: calc(25% - 0.75rem); aspect-ratio: 1/1; }
+        .img-row-3 img { width: calc(33.333% - 0.67rem); aspect-ratio: 1/1; }
+        
         @media (max-width: 768px) {
             .section-img { max-width: 90% !important; height: auto !important; margin-left: auto !important; margin-right: auto !important; }
+            .img-row-4 img { width: calc(50% - 0.5rem); }
+            .img-row-3 img { width: calc(50% - 0.5rem); }
         }
     </style>
 </head>
@@ -210,6 +229,15 @@
                 <div class="course-card" onclick="openModal('graffiti-jugend')"><div><h4>Graffiti für Kids & Teens</h4><p>Von der Skizze zur Wand: Buchstaben, Characters, Styles.</p><span class="level-badge">10-17 Jahre</span><div class="time-info">Sa 13:00-16:00 · 8 Termine</div></div><div class="card-footer"><span class="price">EUR 240</span><button class="btn">Anmelden</button></div></div>
                 <div class="course-card" onclick="openModal('kindergeburtstag')"><div><h4>Kindergeburtstag</h4><p>Ein unvergesslicher Geburtstag: Malen, Basteln oder Graffiti.</p><span class="level-badge">6-14 Jahre</span><div class="time-info">Sa/So · 3 Stunden</div></div><div class="card-footer"><span class="price">ab EUR 250</span><button class="btn">Anfragen</button></div></div>
             </div>
+            
+            <!-- 4 BILDER IN EINER REIHE - Ferienkurse -->
+            <div class="img-row img-row-4">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell_4.jpeg" alt="Aquarell 4">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell_5.jpeg" alt="Aquarell 5">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/aquarell_2.jpeg" alt="Aquarell 2">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/KURSE/keramik_3.jpeg" alt="Keramik 3">
+            </div>
+            
             <div class="category-header"><h3>Ferienkurse</h3><span class="category-badge" style="color:#5BA88C">Oster-, Sommer- & Herbstferien</span></div>
             <div class="course-grid">
                 <div class="course-card" onclick="openModal('ferienkurs-kunst')"><div><h4>Kunstabenteuer (6-9 J.)</h4><p>Eine Woche voller Kreativität für kleine Künstler.</p><span class="level-badge">6-9 Jahre</span><div class="time-info">Mo-Fr 09:30-13:30</div></div><div class="card-footer"><span class="price">EUR 195</span><button class="btn">Anmelden</button></div></div>
@@ -244,6 +272,14 @@
         <div class="container">
             <h2 class="section-title">Über uns</h2>
             <p class="section-intro">Ein Ort zum Lernen, Experimentieren und Wachsen - in Berlin-Charlottenburg.</p>
+            
+            <!-- 3 BILDER IN EINER REIHE -->
+            <div class="img-row img-row-3">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/UEBER_UNS/tiger.jpeg" alt="Atelier">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/UEBER_UNS/toepfern_2.jpeg" alt="Töpfern">
+                <img src="https://raw.githubusercontent.com/thenocturne1/Kunstschule/main/UEBER_UNS/toepfern_3.webp" alt="Keramik">
+            </div>
+            
             <p style="max-width: 700px; line-height: 1.9; margin-bottom: 1.5rem;">In unseren Kursen wird in kleinen, gemischten Gruppen gearbeitet. Die Dozierenden betreuen jeden Teilnehmer nach individuellem Curriculum - kein Frontalunterricht, sondern persönliche Begleitung.</p>
             <p style="max-width: 700px; line-height: 1.9; margin-bottom: 3rem;"><strong>Besonderheit:</strong> Unsere Kunstschule ist an eine professionelle Kunstgießerei angegliedert. Dadurch können wir den kompletten Prozess des Bronzegusses anbieten.</p>
             <div class="info-box">
